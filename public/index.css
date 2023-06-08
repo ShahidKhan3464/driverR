@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* SF PRO Font */
+@font-face {
+  font-weight: 200;
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SF-Pro-Text-Font-Family/Thin.ttf');
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Light.otf');
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Regular.otf');
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Medium.otf');
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Bold.otf');
+}
+
+.ant-layout-content {
+  min-height: calc(100vh - 72px);
+}
+
+.ant-layout-header .header-icons {
+  gap: 24px;
+  height: 100%;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+.ant-layout-header .header-icons button {
+  padding: 0;
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.ant-select-dropdown {
+  padding: 10px;
+}
+
+/* .ant-select-dropdown .rc-virtual-list-holder-inner {
+  gap: 20px;
+}
+
+.ant-select-dropdown .rc-virtual-list-scrollbar {
+  width: 0px !important;
+} */
+
+.ant-select-item.ant-select-item-option {
+  padding: 0;
+  font-size: 16px;
+  color: #4B5563;
+  font-weight: 400;
+  line-height: 24px;
+  font-style: normal;
+  letter-spacing: -0.006em;
+  font-family: 'SF Pro Text';
+}
+
+.ant-select-item-option-active {
+  background: transparent !important;
+}
+
+.ant-select-item.ant-select-item-option.ant-select-item-option-selected {
+  color: #4B5563;
+  font-weight: 400;
+  background: transparent !important;
+}
+
+/* SweetAlert */
+.swal2-popup {
+  padding: 0 !important;
+  width: 26.5em !important;
+  border-radius: 12px !important;
+}
+
+.sweetAlert-title {
+  line-height: 34px;
+  font-style: normal;
+  letter-spacing: 0.0038em;
+  font-family: 'SF Pro Text';
+  font-size: 28px !important;
+  font-weight: 500 !important;
+  color: #111827 !important;
+  padding-top: 16px !important;
+}
+
+.sweetAlert-message {
+  font-size: 18px;
+  font-weight: 400;
+  color: #374151;
+  line-height: 132%;
+  font-style: normal;
+  padding-bottom: 15px;
+  font-family: 'SF Pro Text';
+}
+
+.swal2-confirm.swal2-styled {
+  display: none !important;
+}
+
+.sweetAlert-close-btn {
+  top: 16px;
+  right: 22px;
+  position: absolute;
+}
+
+.sweetAlert-close-btn button {
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+}

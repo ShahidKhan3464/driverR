@@ -1,0 +1,35 @@
+name: Deploy dev branch
+
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  API_GATEWAY_STAGE: dev
+
+jobs:
+  deploy:
+    name: build and deploy dev docker
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create env file
+        run: |
+          cat > .env << EOF
+          ${{ secrets.DEV_ENV }}
+          EOF
+      - name: docker build
+        run: docker build -t frontend-dev .
+        
+      - name: Docker stop and remove
+        run: docker stop frontend-dev-c && docker rm frontend-dev-c
+      
+      - name: Docker start 
+        run: docker run -d --name frontend-dev-c -p 3000:3000 frontend-dev
+
+      - name: Docker show logs 
+        run: sleep 50 && docker logs frontend-dev-c
+
+      - name: Clean up interim docker
+        run: docker image prune -f && docker container prune -f
