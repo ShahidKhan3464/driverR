@@ -28,10 +28,26 @@ export const SideBarContainer = styled.div`
     padding: 19px 18px;
 
     .sidebarContainer {
-        &_title {
+        &_top {
+            gap: 12px;
+            display: flex;
+            align-items: center;
+            
             @media screen and (max-width: 991px) {
                 display: none;
             }
+
+            &_logo {
+                width: 33px;
+                height: 28px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+
             h2 {
                 margin: 0;
                 color: #F9FAFB;

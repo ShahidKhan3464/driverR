@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledTextField } from './style';
 
-const Index = ({ width, mbWidth, label, field, autoComplete, type, error }) => {
+const Index = ({ width, mbWidth, label, shrink, field, autoComplete, type, error, placeholder = '' }) => {
 
     return (
         <StyledTextField
@@ -13,7 +13,9 @@ const Index = ({ width, mbWidth, label, field, autoComplete, type, error }) => {
             error={error}
             mbWidth={mbWidth}
             variant="outlined"
+            placeholder={placeholder}
             autoComplete={autoComplete}
+            InputLabelProps={{ shrink }}
         />
     )
 }

@@ -49,7 +49,10 @@ const Index = ({ sidebarVisible }) => {
                 />
             )}
             <SideBarContainer>
-                <div className='sidebarContainer_title'>
+                <div className='sidebarContainer_top'>
+                    <div className='sidebarContainer_top_logo'>
+                        <img src='/images/logo.svg' alt='logo' />
+                    </div>
                     <h2>TIRminator</h2>
                 </div>
                 <div className='sidebarContainer_menu'>

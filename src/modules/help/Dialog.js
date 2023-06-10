@@ -19,8 +19,8 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
     const filterFaqs = faqs?.find(faq => faq._id === id)
 
     const initialValues = {
-        question: filterFaqs?.question ? filterFaqs.question : "Enter your question here?",
-        answer: filterFaqs?.answer ? filterFaqs.answer : "Enter your description here",
+        question: filterFaqs?.question ? filterFaqs.question : "",
+        answer: filterFaqs?.answer ? filterFaqs.answer : "",
     }
 
     const handleSubmit = async (data) => {
@@ -136,9 +136,11 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                     <TextFieldInput
                                                         type="text"
                                                         width="10.5%"
+                                                        shrink={true}
                                                         autoComplete=""
                                                         label="Question"
                                                         field={{ ...field }}
+                                                        placeholder="Enter your question here?"
                                                         error={formik.errors.question && formik.touched.question}
                                                     />
                                                     <ErrorMessage name={field.name} component={FieldErrorMessage} />
@@ -154,9 +156,11 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                     <TextFieldInput
                                                         type="text"
                                                         width="13%"
+                                                        shrink={true}
                                                         autoComplete=""
                                                         label="Description"
                                                         field={{ ...field }}
+                                                        placeholder='Enter your description here'
                                                         error={formik.errors.answer && formik.touched.answer}
                                                     />
                                                     <ErrorMessage name={field.name} component={FieldErrorMessage} />

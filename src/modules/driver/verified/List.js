@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import RadioGroup from '@mui/material/RadioGroup';
 import TableContainer from '@mui/material/TableContainer';
+import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { StyledTableCell, StyledTableRow, StyledStatus, primaryBlue, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
@@ -19,7 +20,6 @@ import { StyledTableCell, StyledTableRow, StyledStatus, primaryBlue, StyledNoRes
 const options = [
     { icon: '/images/view-icon.svg', text: 'View' },
     { icon: '/images/status-icon.svg', text: 'Change status' },
-    // { icon: '/images/delete-icon.svg', text: 'Delete' },
     { icon: '/images/block-icon.svg', text: 'Block' },
 ]
 
@@ -246,7 +246,7 @@ const Index = ({ data, loading, handleDriverStatus }) => {
                                                 {`${item.firstName} ${item.lastName}`}
                                             </div>
                                         </StyledTableCell>
-                                        <StyledTableCell style={{ textTransform: 'lowercase' }}>{item.email}</StyledTableCell>
+                                        <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.gender}</StyledTableCell>
                                         <StyledTableCell>{item.drivingExperience}</StyledTableCell>
                                         <StyledTableCell>

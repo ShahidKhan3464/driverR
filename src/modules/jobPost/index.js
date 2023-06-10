@@ -16,7 +16,12 @@ const status = [
 ]
 
 const equipmentType = [
+    { value: 'box', text: 'Box' },
+    { value: 'bulk', text: 'Bulk' },
     { value: 'frigo', text: 'Frigo' },
+    { value: 'chassie', text: 'Chassie' },
+    { value: 'oversized', text: 'Oversized' },
+    { value: 'tautliner', text: 'Tautliner' },
     { value: 'Jumbo (40 Ton)', text: 'Jumbo (40 Ton)' },
     { value: 'Car transporter', text: 'Car transporter' },
     { value: 'tautliner & box (12 ton)', text: 'Tautliner & Box (12 Ton)' },

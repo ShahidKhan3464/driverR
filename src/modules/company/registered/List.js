@@ -14,6 +14,7 @@ import TableCell from '@mui/material/TableCell';
 import RadioGroup from '@mui/material/RadioGroup';
 import { primaryBlue } from 'components/globaStyle';
 import TableContainer from '@mui/material/TableContainer';
+import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { StyledTableCell, StyledTableRow, StyledStatus, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
@@ -279,7 +280,7 @@ const Index = ({ data, loading, handleCompanyStatus }) => {
                                                 {item.name}
                                             </div>
                                         </StyledTableCell>
-                                        <StyledTableCell style={{ textTransform: 'lowercase' }}>{item.email}</StyledTableCell>
+                                        <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.numJobs}</StyledTableCell>
                                         <StyledTableCell>{item.subs}</StyledTableCell>
                                         <StyledTableCell>

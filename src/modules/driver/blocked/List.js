@@ -9,6 +9,7 @@ import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
+import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import { StyledTableCell, StyledTableRow, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
 
@@ -135,7 +136,7 @@ const Index = ({ data, loading, handleApplication }) => {
                                                 {`${item.firstName} ${item.lastName}`}
                                             </div>
                                         </StyledTableCell>
-                                        <StyledTableCell style={{ textTransform: 'lowercase' }}>{item.email}</StyledTableCell>
+                                        <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.gender}</StyledTableCell>
                                         <StyledTableCell>{item.drivingExperience}</StyledTableCell>
                                         <StyledTableCell>{item.preferredLocation}</StyledTableCell>

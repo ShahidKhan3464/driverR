@@ -52,7 +52,7 @@ const Index = ({ data, filteredItems, activeChip, loading, setData, setActiveChi
                     <div className='stack'>
                         <Chip
                             variant="outlined"
-                            label="New request"
+                            label="All request"
                             onClick={() => {
                                 setData(data)
                                 setActiveChip('All')

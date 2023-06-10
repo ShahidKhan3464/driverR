@@ -4,12 +4,15 @@ import ApiClient from 'api';
 import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { Layout } from 'antd';
+import { saveAs } from 'file-saver';
 import Dialog from 'components/dialog';
 import Radio from '@mui/material/Radio';
+import { pdf } from '@react-pdf/renderer';
 import DatePicker from "react-datepicker";
 import { getPlanType } from './getPlanType';
 import SweetAlert from 'components/sweetAlert';
 import { useNavigate } from 'react-router-dom';
+import TransactionsPdf from './TransactionsPdf';
 import Dropdown from 'components/tabledropdown';
 import RadioGroup from '@mui/material/RadioGroup';
 import TableSearchHandler from 'components/tableSearchField';
@@ -31,13 +34,13 @@ const radiosButton = [
 const Index = () => {
     const api = new ApiClient()
     const navigate = useNavigate()
-    const [value, setValue] = useState('xlsx')
     const [selected, setSelected] = useState([])
     const [loading, setLoading] = useState(false)
     const [selectDate, setSelectDate] = useState()
     const [searchQuery, setSearchQuery] = useState('')
     const [dialogOpen, setDialogOpen] = useState(false)
     const [transactions, setTransactions] = useState([])
+    const [exportValue, setExportValue] = useState('xlsx')
     const [filter, setFilter] = useState({ subscription: "" })
 
     const filteredTransactions = transactions.filter((item) => {
@@ -87,8 +90,8 @@ const Index = () => {
         setFilter({ ...filter, [name]: value })
     }
 
-    const handleExport = () => {
-        if (value === 'xlsx') {
+    const handleExport = async () => {
+        if (exportValue === 'xlsx') {
             const xlsxData = selected.map(({ name, transactionId, planType, date, amount }) => ({
                 'Company name': name,
                 'Transaction id': transactionId,
@@ -148,9 +151,12 @@ const Index = () => {
             }
         }
 
-        else if (value === 'pdf') {
-            alert('pdf')
+        else if (exportValue === 'pdf') {
+            const doc = pdf(<TransactionsPdf data={selected} />)
+            const blob = await doc.toBlob()
+            saveAs(blob, 'transaction_data.pdf')
         }
+        setExportValue('xlsx')
     }
 
     const exportContent = () => {
@@ -164,9 +170,9 @@ const Index = () => {
                     <h3>Save</h3>
                     <RadioGroup
                         row
-                        value={value}
+                        value={exportValue}
                         sx={{ justifyContent: 'center' }}
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => setExportValue(e.target.value)}
                     >
                         {radiosButton.map((item) => {
                             return (
