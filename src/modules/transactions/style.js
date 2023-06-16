@@ -31,6 +31,10 @@ export const ContentContainer = styled.div`
             align-items: center;
             margin-bottom: 20px;
             justify-content: space-between;
+
+            .disabled-btn {
+                cursor: not-allowed;
+            }
         }
 
         &_control-elements {

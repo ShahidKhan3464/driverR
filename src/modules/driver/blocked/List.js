@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
+import { truncatedString } from 'utils';
 import MenuList from 'components/menuList';
 import TableRow from '@mui/material/TableRow';
 import Pagination from 'components/pagination';
@@ -9,15 +10,14 @@ import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import { StyledTableCell, StyledTableRow, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
 
 const options = [
-    { icon: '/images/view-icon.svg', text: 'View' },
-    { icon: '/images/accept-icon.svg', text: 'Approve' },
-    { icon: '/images/reject-icon.svg', text: 'Reject' },
-    { icon: '/images/block-icon.svg', text: 'Block' },
+    // { icon: '/images/view-icon.svg', text: 'View' },
+    // { icon: '/images/accept-icon.svg', text: 'Approve' },
+    // { icon: '/images/reject-icon.svg', text: 'Reject' },
+    // { icon: '/images/block-icon.svg', text: 'Block' },
 ]
 
 const Index = ({ data, loading, handleApplication }) => {

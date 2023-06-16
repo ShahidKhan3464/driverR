@@ -33,18 +33,32 @@ const Index = () => {
         </span>
     ]
 
-    const handleApplication = async (id, status) => {
-        const applicationStatus = status === 'accept' ? 'APPROVE' : status === 'reject' && 'REJECT'
-        const causeOfRejection = applicationStatus === 'REJECT' ? 'Incomplete' : undefined
-        const params = { companyId: id, applicationStatus, ...(causeOfRejection && { causeOfRejection }) }
+    const handleApplication = async (id, status, data = null) => {
+        const profileStatus =
+            status === 'approve'
+                ? 'APPROVE'
+                : status === 'reject'
+                    ? 'REJECT'
+                    : status === 'block'
+                    && 'BLOCK'
+
+        const isProfileReject = profileStatus === 'REJECT'
+        const params = {
+            companyId: id,
+            profileStatus,
+            ...(isProfileReject && data && {
+                causeOfRejectionTitle: data.title,
+                causeOfRejectionDescription: data.description
+            })
+        }
 
         try {
-            const response = await api.get('/super-admin/approve-company', params)
+            const response = await api.put('/super-admin/manage-company-profile', params)
             if (response.data.status) {
-                if (applicationStatus === 'APPROVE') {
+                if (profileStatus === 'APPROVE') {
                     SweetAlert('success', 'Approved', 'This application has been approved Successfully')
                 }
-                else if (applicationStatus === 'REJECT') {
+                else if (profileStatus === 'REJECT') {
                     SweetAlert('success', 'Rejected', 'This application has been rejected Successfully')
                 }
                 navigate("/admin/company-applications/list")
@@ -125,7 +139,7 @@ const Index = () => {
                 <RejectDialog
                     open={dialogOpen}
                     setOpen={setDialogOpen}
-                    handleApplication={() => handleApplication(detail._id, 'reject')}
+                    handleApplication={(data) => handleApplication(detail._id, 'reject', data)}
                 />
             )}
             <ContentContainer>
@@ -150,7 +164,7 @@ const Index = () => {
                                 <button
                                     type='button'
                                     className='accept-btn'
-                                    onClick={() => handleApplication(detail._id, 'accept')}
+                                    onClick={() => handleApplication(detail._id, 'approve')}
                                 >
                                     Accept
                                 </button>

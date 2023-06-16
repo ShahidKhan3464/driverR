@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from "yup";
 import { Form } from "antd";
 import ApiClient from 'api';
@@ -17,6 +17,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
     const navigate = useNavigate()
     const isMobile = useMediaQuery({ maxWidth: 520 })
     const filterFaqs = faqs?.find(faq => faq._id === id)
+    const [isFormDirty, setIsFormDirty] = useState(false)
 
     const initialValues = {
         question: filterFaqs?.question ? filterFaqs.question : "",
@@ -26,6 +27,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
     const handleSubmit = async (data) => {
         const targetedUser = value === 0 ? 'DRIVER' : value === 1 && 'COMPANY'
         data.targetedUser = targetedUser
+
         if (id) {
             data.isActive = true
             try {
@@ -140,6 +142,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                         autoComplete=""
                                                         label="Question"
                                                         field={{ ...field }}
+                                                        onKeyUp={() => setIsFormDirty(true)}
                                                         placeholder="Enter your question here?"
                                                         error={formik.errors.question && formik.touched.question}
                                                     />
@@ -160,6 +163,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                         autoComplete=""
                                                         label="Description"
                                                         field={{ ...field }}
+                                                        onKeyUp={() => setIsFormDirty(true)}
                                                         placeholder='Enter your description here'
                                                         error={formik.errors.answer && formik.touched.answer}
                                                     />
@@ -179,7 +183,9 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                         </button>
                                         <button
                                             type='submit'
-                                            className='save-btn'
+                                            // className='save-btn'
+                                            className={`save-btn ${dialogType === 'edit' && !formik.dirty && !isFormDirty ? 'disabled-btn' : ''}`}
+                                            disabled={dialogType === 'edit' && !formik.dirty && !isFormDirty}
                                         >
                                             {dialogType === 'add' ? 'Publish' : dialogType === 'edit' && 'Save'}
                                         </button>

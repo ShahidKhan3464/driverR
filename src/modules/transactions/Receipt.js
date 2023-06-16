@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { getPlanType } from './getPlanType';
+import { getPlanType } from 'utils';
 import { StyledReceiptContent } from './style';
 
 const Index = ({ data, componentRef = null }) => {

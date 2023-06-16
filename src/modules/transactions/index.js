@@ -5,11 +5,11 @@ import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { Layout } from 'antd';
 import { saveAs } from 'file-saver';
+import { getPlanType } from 'utils';
 import Dialog from 'components/dialog';
 import Radio from '@mui/material/Radio';
 import { pdf } from '@react-pdf/renderer';
 import DatePicker from "react-datepicker";
-import { getPlanType } from './getPlanType';
 import SweetAlert from 'components/sweetAlert';
 import { useNavigate } from 'react-router-dom';
 import TransactionsPdf from './TransactionsPdf';
@@ -22,6 +22,7 @@ import { ContentContainer, StyledExportButton, StyledDatepickerContainer } from 
 const { Content } = Layout;
 
 const subscription = [
+    { value: 'basic', text: 'Basic' },
     { value: 'standard', text: 'Standard' },
     { value: 'premium', text: 'Premium' },
 ]
@@ -252,7 +253,12 @@ const Index = () => {
                         <div className='table_header_heading'>
                             <StyledTableHeading>Transaction history</StyledTableHeading>
                         </div>
-                        <StyledExportButton onClick={() => setDialogOpen(true)}>
+                        <StyledExportButton
+                            type='button'
+                            disabled={selected.length === 0}
+                            onClick={() => setDialogOpen(true)}
+                            className={`${selected.length === 0 ? 'disabled-btn' : ''}`}
+                        >
                             <img src='/images/export-blue.svg' alt='export' />
                             Export
                         </StyledExportButton>

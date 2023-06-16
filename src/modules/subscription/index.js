@@ -22,9 +22,41 @@ const Index = () => {
     const api = new ApiClient()
     const navigate = useNavigate()
     const [plans, setPlans] = useState()
+    const [addons, setAddOns] = useState()
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [singlePlan, setSinglePlan] = useState()
+
+    const combinedData = plans?.map(plan => {
+        const planName = plan.name.split(" ")[0].toLowerCase()
+        const matchingAddOns = addons.filter(addOn => {
+            const addOnName = addOn.name.split(" ")[0].toLowerCase()
+            return planName === addOnName
+        })
+
+        const modifiedAddOns = matchingAddOns.map(addOn => {
+            const addOnName = addOn.name.split(" ")[1].toLowerCase()
+            const price = `${addOn.price}`
+
+            if (addOnName === 'job') {
+                return {
+                    price,
+                    text: `Extra job post price`,
+                }
+            }
+
+            if (addOnName === 'contacts') {
+                return {
+                    price,
+                    text: `10 driver profile price`,
+                }
+            }
+
+            return ''
+        })
+
+        return { ...plan, addOns: modifiedAddOns }
+    })
 
     const handleEdit = (plan) => {
         setIsEdit(true)
@@ -50,15 +82,26 @@ const Index = () => {
     const getData = useCallback(async () => {
         try {
             setLoading(true)
-            const response = await api.get('/payment/view-all')
-            if (response.data.status) {
-                const plans = response.data.result.data.sort((a, b) => a.price - b.price)
+            const products = await api.get('/payment/view-all-products')
+            const addons = await api.get('/payment/view-all-addons')
+            if (products.data.status) {
+                const plans = products.data.result.data.sort((a, b) => a.price - b.price)
                 setPlans(plans)
+                setLoading(false)
+            }
+            else {
+                SweetAlert('warning', 'Warning!', products.data.message)
+                setLoading(false)
+            }
+            if (addons.data.status) {
+                setAddOns(addons.data.result.data)
                 setLoading(false)
                 return
             }
-            SweetAlert('warning', 'Warning!', response.data.message)
-            setLoading(false)
+            else {
+                SweetAlert('warning', 'Warning!', addons.data.message)
+                setLoading(false)
+            }
         }
         catch (error) {
             setLoading(true)
@@ -98,7 +141,7 @@ const Index = () => {
                             </div>
                         ) : (
                             <div className='subscription_plans'>
-                                {plans?.map((plan, index) => {
+                                {combinedData?.map((plan, index) => {
                                     const isFirstIndex = index === 0
                                     return (
                                         <div key={plan.id} className='subscription_plans_plan'>
@@ -129,6 +172,23 @@ const Index = () => {
                                                                 />
                                                             </div>
                                                             <span>{newObj.text}</span>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+
+                                            <div style={{ marginTop: '32px' }} className='subscription_plans_ad-ons'>
+                                                <h3 style={{ marginBottom: '8px' }}>Ad-ons</h3>
+                                                {plan.addOns.map((item, index) => {
+                                                    return (
+                                                        <div key={index} className='service'>
+                                                            <div className="active">
+                                                                <img
+                                                                    alt='active'
+                                                                    src='/images/service-active.svg'
+                                                                />
+                                                            </div>
+                                                            <span>{item.text} {`(€${item.price})`}</span>
                                                         </div>
                                                     )
                                                 })}

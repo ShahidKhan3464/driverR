@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { grey500, grey600, infoLink, primaryBlue } from "components/globaStyle";
+import { grey300, grey500, grey600, infoLink, primaryBlue } from "components/globaStyle";
 
 export const ContentContainer = styled.div`
     margin-top: 20px;
@@ -773,6 +773,11 @@ export const StyledDialogContent = styled.div`
                     .save-btn {
                         color: #F9FAFB;
                         background: ${primaryBlue};
+                    }
+
+                    .disabled-btn {
+                        cursor: not-allowed;
+                        background: ${grey300};
                     }
                 }
             }

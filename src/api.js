@@ -4,7 +4,8 @@ import axios from 'axios';
 const authToken = localStorage.getItem('authToken')
 
 const baseURL = 'https://dev.tirminator.com'
-// const baseURL = 'https://4799-119-152-141-24.ngrok-free.app'
+// const baseURL = 'https://2410-119-155-38-72.ngrok-free.app'
+// const baseURL = 'https://100b-119-155-49-70.ngrok-free.app'
 
 class ApiClient {
 
@@ -15,6 +16,7 @@ class ApiClient {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`,
+                'ngrok-skip-browser-warning': 'ngrok-skip-browser-warning',
             },
         })
     }

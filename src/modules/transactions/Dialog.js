@@ -90,20 +90,18 @@ const Index = ({ open, data, dialogType, setOpen }) => {
                 },
             }}
         >
-            {dialogType === 'export' && (
-                <IconButton
-                    aria-label="close"
-                    onClick={() => setOpen(false)}
-                    sx={{
-                        top: 16,
-                        right: 16,
-                        padding: 0,
-                        position: 'absolute',
-                    }}
-                >
-                    <img src='/images/pop-cross-icon.svg' alt='cross-icon' />
-                </IconButton>
-            )}
+            <IconButton
+                aria-label="close"
+                onClick={() => setOpen(false)}
+                sx={{
+                    top: 16,
+                    right: 16,
+                    padding: 0,
+                    position: 'absolute',
+                }}
+            >
+                <img src='/images/pop-cross-icon.svg' alt='cross-icon' />
+            </IconButton>
 
             {dialogType === 'view'
                 ? <ViewReceipt data={data} />

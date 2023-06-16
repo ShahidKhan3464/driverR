@@ -28,6 +28,11 @@ export const StyledDialogContent = styled.div`
         height: 61px;
     }
 
+    .remove-icon {
+        width: 52px;
+        height: 52px;
+    }
+
     .reject-icon, .block-icon {
         width: 56px;
         height: 56px;
@@ -107,7 +112,7 @@ export const StyledDialogContent = styled.div`
             background: #EF4444;
         }
 
-        .update-btn, .logout-btn, .reject-btn, .block-btn, .export-btn {
+        .update-btn, .logout-btn, .reject-btn, .block-btn, .export-btn, .remove-btn {
             border: none;
             color: #FFFFFF;
             background: ${primaryBlue};

@@ -74,7 +74,7 @@ const Index = () => {
                 setLoading(false)
                 return
             }
-            SweetAlert('error', 'Warning!', response.data.message)
+            SweetAlert('error', 'Warning!', 'Incorrect current password')
             setLoading(false)
         }
         catch (error) {

@@ -130,11 +130,11 @@ export const StyledGraph = styled.div`
     width: 100%;
     background: #FFFFFF;
     border-radius: 12px;
-    padding: 24px 32px 0;
+    padding: 24px 32px 24px;
     border: 1px solid #E7E7E7;
 
     @media screen and (max-width: 425px) {
-        padding: 16px 16px 0;
+        padding: 16px;
     }
 
     .header {
@@ -146,12 +146,17 @@ export const StyledGraph = styled.div`
 
         @media screen and (max-width: 425px) {
             gap: 10px;
+            margin-bottom: 12px;
         }
 
         .plan-type {
             gap: 24px;
             display: flex;
             align-items: center;
+
+            @media screen and (max-width: 425px) {
+                gap: 12px;
+            }
 
             >div {
                 gap: 8px;
@@ -208,45 +213,46 @@ export const StyledNotifications = styled.div`
     .list {
         gap: 8px;
         display: flex;
-        padding-top: 20px;
-        padding-left: 8px;
+        padding-top: 18px;
         flex-direction: column;
 
         &_item {
-            gap: 8px;
-            display: flex;
-            align-items: center;
-            padding-bottom: 16px;
+            padding-bottom: 8px;
             border-bottom:  0.2px solid #B5B4B4;
 
-            &:last-child {
-                border: none;
-                padding-top: 8px;
-                padding-bottom: 0;
+            // &:last-child {
+            //     border: none;
+            //     padding-top: 8px;
+            //     padding-bottom: 0;
 
-                p {
-                    span:last-child {
-                        font-weight: 500;
-                        color: ${grey500};
-                    }
-                }
-            }
+            //     p {
+            //         span:last-child {
+            //             font-weight: 500;
+            //             color: ${grey500};
+            //         }
+            //     }
+            // }
 
             &_text {
+                h3 {
+                    margin: 0;
+                    color: #18181B;
+                    font-size: 12px;
+                    font-weight: 600;
+                    line-height: 20px;
+                    font-style: normal;
+                    font-family: SF Pro Text;
+                }
+
                 p {
                     margin: 0;
                     font-size: 12px;
-                    font-weight: 500;
-                    margin-top: 10px;
+                    margin-top: 2px;
+                    font-weight: 400;
                     color: ${grey500};
                     line-height: 20px;
                     font-style: normal;
                     font-family: SF Pro Text;
-
-                    span {
-                        font-weight: 600;
-                        color: ${grey800};
-                    }
                 }
 
                 .time {

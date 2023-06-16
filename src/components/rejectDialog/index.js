@@ -16,12 +16,12 @@ const Index = ({ open, setOpen, handleApplication }) => {
     const isMobile = useMediaQuery({ maxWidth: 520 })
 
     const initialValues = {
-        cause: "",
+        title: "",
         description: ""
     }
 
     const handleSubmit = async (data) => {
-        handleApplication()
+        handleApplication(data)
         setOpen(false)
     }
 
@@ -81,18 +81,18 @@ const Index = ({ open, setOpen, handleApplication }) => {
                                     onFinish={formik.handleSubmit}
                                 >
                                     <div className='field-control'>
-                                        <Field name="cause">
+                                        <Field name="title">
                                             {({ field }) => (
                                                 <React.Fragment>
                                                     <StyledFormControl
                                                         fullWidth
                                                         width="7.5%"
-                                                        error={formik.errors.cause && formik.touched.cause}
+                                                        error={formik.errors.title && formik.touched.title}
                                                     >
                                                         <InputLabel>Cause</InputLabel>
                                                         <Field
                                                             as={Select}
-                                                            name='cause'
+                                                            name='title'
                                                             label="Cause"
                                                         >
                                                             <MenuItem value="incomplete document">Incomplete Document</MenuItem>
@@ -152,7 +152,7 @@ const Index = ({ open, setOpen, handleApplication }) => {
 
 export default Index
 const validationSchema = Yup.object({
-    cause: Yup.string().required('This field is required'),
+    title: Yup.string().required('This field is required'),
     description: Yup.string()
         .required('This field is required')
         .max(1000, 'Description can have max 1000 characters'),

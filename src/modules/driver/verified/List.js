@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dialog from 'components/dialog';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
+import { truncatedString } from 'utils';
 import Radio from '@mui/material/Radio';
 import MenuList from 'components/menuList';
 import TableRow from '@mui/material/TableRow';
@@ -12,7 +13,6 @@ import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import RadioGroup from '@mui/material/RadioGroup';
 import TableContainer from '@mui/material/TableContainer';
-import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { StyledTableCell, StyledTableRow, StyledStatus, primaryBlue, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
@@ -28,7 +28,7 @@ const radiosButton = [
     { value: 'In-active', label: 'Inactive' }
 ]
 
-const Index = ({ data, loading, handleDriverStatus }) => {
+const Index = ({ data, loading, handleApplication, handleDriverStatus }) => {
     const navigate = useNavigate()
     const [id, setId] = useState(null)
     const [page, setPage] = useState(1)
@@ -51,12 +51,6 @@ const Index = ({ data, loading, handleDriverStatus }) => {
         setPage(1)
     }
 
-    const handleBlockApplication = () => {
-        setDialogType(null)
-        setDialogOpen(false)
-        // handleApplication(id, 'block')
-    }
-
     const handleTableMenu = (id, userId, status, option) => {
         if (option === 'View') {
             navigate(`/admin/driver/viewDetail/${userId}`, { state: { application: false } })
@@ -74,6 +68,12 @@ const Index = ({ data, loading, handleDriverStatus }) => {
             setDialogOpen(true)
             setDialogType('block')
         }
+    }
+
+    const handleBlock = () => {
+        setDialogType(null)
+        setDialogOpen(false)
+        handleApplication(id, 'BLOCK')
     }
 
     const statusContent = () => {
@@ -172,7 +172,7 @@ const Index = ({ data, loading, handleDriverStatus }) => {
                     <button
                         type='button'
                         className='block-btn'
-                        onClick={handleBlockApplication}
+                        onClick={handleBlock}
                     >
                         Block
                     </button>

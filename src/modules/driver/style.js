@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryBlue, grey500, grey800 } from "components/globaStyle";
+import { primaryBlue, grey500, grey800, infoLink } from "components/globaStyle";
 
 export const ContentContainer = styled.div`
     margin-left: 272px;
@@ -23,13 +23,34 @@ export const ContentContainer = styled.div`
             padding: 16px;
         }
 
-        &_blocked-header {
+        &_header {
             gap: 12px;
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 20px;
             align-items: center;
             justify-content: space-between;
+
+            .disabled-btn {
+                cursor: not-allowed;
+            }
+
+            button {
+                gap: 8px;
+                border: none;
+                outline: none;
+                display: flex;
+                font-size: 16px;
+                cursor: pointer;
+                font-weight: 400;
+                line-height: 21px;
+                font-style: normal;
+                color: ${infoLink};
+                align-items: center;
+                background: transparent;
+                font-family: SF Pro Text;
+                letter-spacing: -0.0031em;
+            }
         }
 
         &_control-elements {

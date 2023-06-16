@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dialog from 'components/dialog';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
+import { truncatedString } from 'utils';
 import Radio from '@mui/material/Radio';
 import MenuList from 'components/menuList';
 import TableRow from '@mui/material/TableRow';
@@ -14,7 +15,6 @@ import TableCell from '@mui/material/TableCell';
 import RadioGroup from '@mui/material/RadioGroup';
 import { primaryBlue } from 'components/globaStyle';
 import TableContainer from '@mui/material/TableContainer';
-import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { StyledTableCell, StyledTableRow, StyledStatus, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
@@ -30,7 +30,7 @@ const radiosButton = [
     { value: 'In-active', label: 'Inactive' }
 ]
 
-const Index = ({ data, loading, handleCompanyStatus }) => {
+const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
     const navigate = useNavigate()
     const [id, setId] = useState(null)
     const [page, setPage] = useState(1)
@@ -53,12 +53,6 @@ const Index = ({ data, loading, handleCompanyStatus }) => {
         setPage(1)
     }
 
-    const handleBlock = () => {
-        setDialogType(null)
-        setDialogOpen(false)
-        SweetAlert('success', 'Blocked', 'This application has been blocked Successfully')
-    }
-
     const handleTableMenu = (id, userId, status, option) => {
         if (option === 'View') {
             navigate(`/admin/company/viewDetail/${userId}`, { state: { application: false } })
@@ -78,38 +72,11 @@ const Index = ({ data, loading, handleCompanyStatus }) => {
         }
     }
 
-    // const deleteContent = () => {
-    //     return (
-    //         <React.Fragment>
-    //             <div className='delete-icon'>
-    //                 <img src='/images/delete-icon.svg' alt='delete-icon' />
-    //             </div>
-
-    //             <div className='text'>
-    //                 <h3 style={{ color: '#EF4444' }}>Delete!</h3>
-    //                 <p>Are you sure you want to delete this “Company”?</p>
-    //             </div>
-    //             <div className='btn-container'>
-    //                 <button
-    //                     type='button'
-    //                     className='cancel-btn'
-    //                     onClick={() => setDialogOpen(false)}
-    //                 >
-    //                     Cancel
-    //                 </button>
-    //                 <button
-    //                     className='delete-btn'
-    //                     type='button'
-    //                     onClick={() => {
-    //                         setDialogOpen(false)
-    //                         handleCompanyDelete(id)
-    //                     }}>
-    //                     Delete
-    //                 </button>
-    //             </div>
-    //         </React.Fragment>
-    //     )
-    // }
+    const handleBlock = () => {
+        setDialogType(null)
+        setDialogOpen(false)
+        handleApplication(id, 'BLOCK')
+    }
 
     const statusContent = () => {
         return (

@@ -17,11 +17,11 @@ const Index = ({ plan, getData, setIsEdit }) => {
     const initialValues = {
         name: plan.name,
         price: plan.price,
-        extraJobPrice: '€70',
-        extraDriverPrice: '€15',
         numberPostsAllowed: plan.numberPostsAllowed,
         numberProfilesAllowed: plan.numberProfilesAllowed,
         numberApplicantsAllowed: plan.numberApplicantsAllowed,
+        extraJobPrice: plan.addOns.find(addOn => addOn.text === 'Extra job post price')?.price,
+        extraDriverPrice: plan.addOns.find(addOn => addOn.text === '10 driver profile price')?.price
     }
 
     const handleSubmit = async (data) => {
@@ -35,8 +35,10 @@ const Index = ({ plan, getData, setIsEdit }) => {
                 SweetAlert('success', 'Success', response.data.message)
                 getData()
                 setIsEdit(false)
+                return
             }
             setLoading(false)
+            SweetAlert('warning', 'Warning!', response.data.message)
         }
         catch (error) {
             setLoading(true)

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import Dialog from './Dialog';
+import { getPlanType } from 'utils';
 import { saveAs } from 'file-saver';
 import PrintReceipt from './Receipt';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import { pdf } from '@react-pdf/renderer';
 import MenuList from 'components/menuList';
-import { getPlanType } from './getPlanType';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import Pagination from 'components/pagination';

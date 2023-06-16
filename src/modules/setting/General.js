@@ -118,6 +118,7 @@ const Index = () => {
                                         '& .Mui-disabled': {
                                             fontWeight: 400,
                                             fontStyle: 'normal',
+                                            cursor: 'not-allowed',
                                             fontFamily: 'SF Pro Text',
                                         },
                                         '& .MuiOutlinedInput-input': {

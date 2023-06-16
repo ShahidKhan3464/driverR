@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { getPlanType } from './getPlanType';
+import { getPlanType } from 'utils';
 import { grey500, primaryBlue } from 'components/globaStyle';
 import { Document, Page, StyleSheet, View, Text, Font } from '@react-pdf/renderer';
 

@@ -3,6 +3,24 @@ import FormControl from '@mui/material/FormControl';
 import { grey500, grey900, primaryBlue } from "components/globaStyle";
 
 export const ContentContainer = styled.div`
+
+    h3 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 26px;
+        font-style: normal;
+        margin-bottom: 20px;
+        color: ${primaryBlue};
+        font-family: SF Pro Text;
+        text-transform: capitalize;
+
+        @media screen and (max-width: 520px) {
+            font-size: 20px;
+            line-height: 24px;
+        }
+    }
+
     margin-top: 20px;
     margin-right: 24px;
     margin-left: 294px;
@@ -69,22 +87,22 @@ export const ContentContainer = styled.div`
                     }
 
                     &_left {
-                        h3 {
-                            margin: 0;
-                            font-size: 22px;
-                            font-weight: 600;
-                            line-height: 26px;
-                            font-style: normal;
-                            margin-bottom: 20px;
-                            color: ${primaryBlue};
-                            font-family: SF Pro Text;
-                            text-transform: capitalize;
+                        // h3 {
+                        //     margin: 0;
+                        //     font-size: 22px;
+                        //     font-weight: 600;
+                        //     line-height: 26px;
+                        //     font-style: normal;
+                        //     margin-bottom: 20px;
+                        //     color: ${primaryBlue};
+                        //     font-family: SF Pro Text;
+                        //     text-transform: capitalize;
 
-                            @media screen and (max-width: 520px) {
-                                font-size: 20px;
-                                line-height: 24px;
-                            }
-                        }
+                        //     @media screen and (max-width: 520px) {
+                        //         font-size: 20px;
+                        //         line-height: 24px;
+                        //     }
+                        // }
 
                         p {
                             gap: 8px;
@@ -127,12 +145,12 @@ export const ContentContainer = styled.div`
                 }
             }
 
-            &_services {
+            &_services, &_ad-ons {
                 gap: 16px;
                 display: flex;
                 flex-direction: column;
                 
-                &_service {
+                &_service, .service {
                     gap: 17px;
                     display: grid;
                     align-items: center;

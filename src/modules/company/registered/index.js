@@ -47,7 +47,7 @@ const Index = () => {
             setLoading(true)
             const response = await api.get('/super-admin/view-all-companies')
             const data = response.data.result.data
-            const registeredCompanies = data.filter(item => item.applicationStatus === 'APPROVE')
+            const registeredCompanies = data.filter(item => item.profileStatus === 'APPROVE')
             setCompanies(registeredCompanies)
             setLoading(false)
         }
@@ -64,26 +64,36 @@ const Index = () => {
         }
     }, [])
 
+    const handleApplication = async (id, status) => {
+        const profileStatus = status
+        const params = {
+            companyId: id,
+            profileStatus,
+        }
+
+        try {
+            const response = await api.put('/super-admin/manage-company-profile', params)
+            if (response.data.status) {
+                if (profileStatus === 'BLOCK') {
+                    SweetAlert('success', 'Blocked', 'This application has been blocked Successfully')
+                }
+            }
+            getData()
+        }
+        catch (error) {
+            const tokenExpired = error.response?.data.message
+            if (tokenExpired === 'Token expired, access denied') {
+                localStorage.clear()
+                navigate("/")
+                return
+            }
+            SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+        }
+    }
+
     const handleFilterChange = (name, value) => {
         setFilter({ ...filter, [name]: value })
     }
-
-    // const handleCompanyDelete = async (id) => {
-    //     const data = { companyId: id }
-    //     try {
-    //         await api.delete('/super-admin/remove-company', data)
-    //         getData()
-    //     }
-    //     catch (error) {
-    //         const tokenExpired = error.response?.data.message
-    //         if (tokenExpired === 'Token expired, access denied') {
-    //             localStorage.clear()
-    //             navigate("/")
-    //             return
-    //         }
-    //         SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
-    //     }
-    // }
 
     const handleCompanyStatus = async (id, newStatus) => {
         const data = { companyId: id, isActive: newStatus === 'Active' ? true : false }
@@ -130,7 +140,12 @@ const Index = () => {
                         </div>
                         <TableSearchHandler handleSearchQueryChange={handleSearchQueryChange} />
                     </div>
-                    <List data={filteredCompanies} loading={loading} handleCompanyStatus={handleCompanyStatus} />
+                    <List
+                        loading={loading}
+                        data={filteredCompanies}
+                        handleApplication={handleApplication}
+                        handleCompanyStatus={handleCompanyStatus}
+                    />
                 </div>
             </ContentContainer>
         </Content>

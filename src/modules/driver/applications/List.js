@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dialog from 'components/dialog';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
+import { truncatedString } from 'utils';
 import MenuList from 'components/menuList';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -12,7 +13,6 @@ import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import RejectDialog from 'components/rejectDialog';
 import TableContainer from '@mui/material/TableContainer';
-import { truncatedString } from 'components/truncatedText';
 import CircularProgress from '@mui/material/CircularProgress';
 import { StyledTableCell, StyledTableRow, StyledNoResultsFound, StyledLoadingContainer, StyledHeading, StyledStatus, infoLink } from 'components/globaStyle';
 
@@ -23,12 +23,11 @@ const options = [
     { icon: '/images/remove-icon.svg', text: 'Remove' },
 ]
 
-const Index = ({ data, loading, handleApplication }) => {
+const Index = ({ data, loading, selected, setSelected, handleApplication, handleRemoveApplication }) => {
     const navigate = useNavigate()
     const [id, setId] = useState(null)
     const [page, setPage] = useState(1)
     const noResultsFound = data.length === 0
-    const [selected, setSelected] = useState([])
     const [rowsPerPage, setRowsPerPage] = useState(5)
     const [dialogType, setDialogType] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -48,12 +47,6 @@ const Index = ({ data, loading, handleApplication }) => {
         setPage(1)
     }
 
-    const handleBlockApplication = () => {
-        setDialogType(null)
-        setDialogOpen(false)
-        handleApplication(id, 'block')
-    }
-
     const handleTableMenu = (id, userId, status, option) => {
         if (option === 'View') {
             navigate(`/admin/driver/viewDetail/${userId}`, { state: { application: true } })
@@ -69,10 +62,10 @@ const Index = ({ data, loading, handleApplication }) => {
             setDialogType('reject')
         }
 
-        else if (option === 'Block') {
+        else if (option === 'Remove') {
             setId(id)
             setDialogOpen(true)
-            setDialogType('block')
+            setDialogType('remove')
         }
     }
 
@@ -143,16 +136,16 @@ const Index = ({ data, loading, handleApplication }) => {
         )
     }
 
-    const blockContent = () => {
+    const removeContent = () => {
         return (
             <React.Fragment>
-                <div className='block-icon'>
-                    <img src='/images/block-icon.svg' alt='block-icon' />
+                <div className='remove-icon'>
+                    <img src='/images/remove-icon.svg' alt='remove-icon' />
                 </div>
 
                 <div className='text'>
-                    <h3>Block!</h3>
-                    <p>Are you sure you want to block this “Driver”?</p>
+                    <h3>Remove!</h3>
+                    <p>Are you sure you want to remove this “Driver”?</p>
                 </div>
                 <div className='btn-container'>
                     <button
@@ -164,10 +157,14 @@ const Index = ({ data, loading, handleApplication }) => {
                     </button>
                     <button
                         type='button'
-                        className='block-btn'
-                        onClick={handleBlockApplication}
+                        className='remove-btn'
+                        onClick={() => {
+                            setDialogType(null)
+                            setDialogOpen(false)
+                            handleRemoveApplication(id)
+                        }}
                     >
-                        Block
+                        Remove
                     </button>
                 </div>
             </React.Fragment>
@@ -177,18 +174,23 @@ const Index = ({ data, loading, handleApplication }) => {
     return (
         <React.Fragment>
             {dialogOpen && (
-                dialogType === 'reject' || dialogType === 'block')
+                dialogType === 'reject' || dialogType === 'remove')
                 ? (
                     <Dialog
                         open={dialogOpen}
                         setOpen={setDialogOpen}
-                        content={dialogType === 'reject' ? rejectContent() : dialogType === 'block' && blockContent()}
+                        content={
+                            dialogType === 'reject'
+                                ? rejectContent()
+                                : dialogType === 'remove'
+                                && removeContent()
+                        }
                     />
                 ) : dialogType === 'cause' && (
                     <RejectDialog
                         open={dialogOpen}
                         setOpen={setDialogOpen}
-                        handleApplication={() => handleApplication(id, 'reject')}
+                        handleApplication={(data) => handleApplication(id, 'reject', data)}
                     />
                 )}
             <TableContainer
@@ -282,17 +284,17 @@ const Index = ({ data, loading, handleApplication }) => {
                                         <StyledTableCell>{item.preferredLocation}</StyledTableCell>
                                         <StyledTableCell>
                                             <StyledStatus
-                                                width={item.applicationStatus === 'REJECT'
-                                                    ? '82px' : item.applicationStatus === 'Pending' && '78px'
+                                                width={item.profileStatus === 'REJECT'
+                                                    ? '82px' : item.profileStatus === 'PENDING' && '78px'
                                                 }
-                                                color={item.applicationStatus === 'REJECT'
-                                                    ? '#EF4444' : item.applicationStatus === 'Pending' && infoLink
+                                                color={item.profileStatus === 'REJECT'
+                                                    ? '#EF4444' : item.profileStatus === 'PENDING' && infoLink
                                                 }
-                                                background={item.applicationStatus === 'REJECT'
-                                                    ? 'rgba(239, 68, 68, 0.05)' : item.applicationStatus === 'Pending' && 'rgba(17, 83, 218, 0.05)'
+                                                background={item.profileStatus === 'REJECT'
+                                                    ? 'rgba(239, 68, 68, 0.05)' : item.profileStatus === 'PENDING' && 'rgba(17, 83, 218, 0.05)'
                                                 }
                                             >
-                                                {item.applicationStatus === 'REJECT' ? 'Rejected' : item.applicationStatus === 'Pending' && 'Pending'}
+                                                {item.profileStatus === 'REJECT' ? 'Rejected' : item.profileStatus === 'PENDING' && 'Pending'}
                                             </StyledStatus>
                                         </StyledTableCell>
                                         <StyledTableCell align='center'>

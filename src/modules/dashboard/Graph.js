@@ -1,53 +1,104 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import ApiClient from 'api';
+import { getPlanType } from 'utils';
 import { Line } from 'react-chartjs-2';
+import Skeleton from '@mui/material/Skeleton';
+import { useNavigate } from 'react-router-dom';
+import SweetAlert from 'components/sweetAlert';
+import Dropdown from 'components/tabledropdown';
 import { Chart as ChartJS } from 'chart.js/auto';
 import { StyledGraph, StyledHeading } from './style';
 
-const data = {
-    labels: ['JAN', 'FEB', 'MAR', 'APR', 'May', 'JUN', 'JUL'],
-    datasets: [
-        {
-            tension: 0.5,
-            borderWidth: 3,
-            pointRadius: 0,
-            borderDash: [12, 12],
-            borderStyle: 'dashed',
-            borderColor: '#46DE70',
-            data: [0, 13, 5, 6, 4, 11, 0],
-        },
-        {
-            tension: 0.5,
-            borderWidth: 3,
-            pointRadius: 0,
-            borderDash: [12, 12],
-            borderStyle: 'dashed',
-            borderColor: '#962DFF',
-            data: [0, 18, 10, 10.5, 1, 13, 0],
-        },
-        {
-            tension: 0.5,
-            borderWidth: 3,
-            pointRadius: 0,
-            borderDash: [12, 12],
-            borderStyle: 'dashed',
-            borderColor: '#FF718B',
-            data: [0, 10, 21, 10, 5, 15, 0],
-        },
-    ]
-}
+const months = [
+    { value: 1, text: '01 month' },
+    { value: 2, text: '02 months' },
+    { value: 3, text: '03 months' },
+    { value: 4, text: '04 months' },
+    { value: 5, text: '05 months' },
+    { value: 6, text: '06 months' },
+    { value: 7, text: '07 months' },
+    { value: 8, text: '08 months' },
+    { value: 9, text: '09 months' },
+    { value: 10, text: '10 months' },
+    { value: 11, text: '11 months' },
+    { value: 12, text: '12 months' },
+]
 
-const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            display: false
+const Index = () => {
+    const api = new ApiClient()
+    const navigate = useNavigate()
+    const [data, setData] = useState()
+    const [options, setOptions] = useState()
+    const [graphData, setGraphData] = useState()
+    const [loading, setLoading] = useState(true)
+
+    const generateGraphData = (subscriptions, value) => {
+        const limit = value ? value : 6
+        const plans = Array.from(new Set(subscriptions.map((subscription) => subscription.planType)))
+
+        const planMonths = {}
+        plans.forEach((plan) => {
+            planMonths[plan] = []
+        })
+
+        const getColor = (plan) => {
+            switch (plan.toLowerCase()) {
+                case 'basic':
+                    return '#46DE70'
+                case 'standard':
+                    return '#962DFF'
+                case 'premium':
+                    return '#FF718B'
+                default:
+                    break
+            }
         }
-    },
-    scales: {
-        y: {
-            stepSize: 5,
-            suggestedMin: 0,
-            suggestedMax: 25,
+
+        const earliestSubscriptionDate = new Date(Math.min(...subscriptions.map((subscription) => subscription.date)))
+        const currentMonth = earliestSubscriptionDate.getMonth()
+        const currentYear = earliestSubscriptionDate.getFullYear()
+
+        const monthLabels = []
+
+        for (let i = 0; i < limit; i++) {
+            const monthIndex = (currentMonth + i) % 12
+            const year = currentYear + Math.floor((currentMonth + i) / 12)
+
+            const monthName = new Date(year, monthIndex).toLocaleString('default', { month: 'short' })
+            monthLabels.push(monthName)
+
+            plans.forEach((plan) => {
+                const matchingSubscriptions = subscriptions.filter((subscription) => subscription.planType === plan)
+                const matchingSubscriptionsInMonth = matchingSubscriptions.filter((subscription) => {
+                    const subscriptionMonth = subscription.date.getMonth()
+                    const subscriptionYear = subscription.date.getFullYear()
+                    return subscriptionMonth === monthIndex && subscriptionYear === year
+                })
+
+                planMonths[plan].push(matchingSubscriptionsInMonth.length)
+            })
+        }
+
+        const graphDatasets = Object.keys(planMonths).map((plan) => ({
+            label: plan,
+            fill: false,
+            tension: 0.5,
+            borderWidth: 3,
+            pointRadius: 0,
+            borderDash: [12, 12],
+            borderStyle: 'dashed',
+            data: planMonths[plan],
+            borderColor: getColor(plan),
+        }))
+
+        const minDataValue = Math.min(...graphDatasets.flatMap((dataset) => dataset.data))
+        const maxDataValue = Math.max(...graphDatasets.flatMap((dataset) => dataset.data))
+        const stepSize = Math.ceil((maxDataValue - minDataValue) / 5)
+
+        const yAxesOptions = {
+            stepSize: stepSize,
+            suggestedMin: minDataValue,
+            suggestedMax: maxDataValue,
             border: { display: false },
             grid: { color: '#E5E5EF' },
             ticks: {
@@ -61,9 +112,9 @@ const options = {
                     family: 'SF Pro Text',
                 },
             },
-        },
+        }
 
-        x: {
+        const xAxesOptions = {
             grid: { display: false },
             border: { display: false },
             ticks: {
@@ -77,10 +128,63 @@ const options = {
                 },
             },
         }
-    },
-}
 
-const Index = () => {
+        const updatedOptions = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+            scales: {
+                y: yAxesOptions,
+                x: xAxesOptions,
+            },
+        }
+
+        return {
+            labels: monthLabels,
+            datasets: graphDatasets,
+            options: updatedOptions,
+        }
+    }
+
+    const handleGraphData = (data, value) => {
+        const updatedData = generateGraphData(data, value)
+        setGraphData(updatedData)
+    }
+
+    const getData = useCallback(async () => {
+        try {
+            const response = await api.get('/payment/transactions')
+            const subscriptions = response.data.result.data.data?.map(item => {
+                return {
+                    date: new Date(item.period_start * 1000),
+                    planType: getPlanType(item.lines.data[0].description),
+                }
+            })
+            if (subscriptions) {
+                const updatedData = generateGraphData(subscriptions)
+                setData(subscriptions)
+                setGraphData(updatedData)
+                setOptions(updatedData.options)
+            }
+            setLoading(false)
+        }
+        catch (error) {
+            const tokenExpired = error.response?.data.message
+            if (tokenExpired === 'Token expired, access denied') {
+                localStorage.clear()
+                navigate("/")
+                return
+            }
+            SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+        }
+    }, [])
+
+    useEffect(() => {
+        getData()
+    }, [getData])
 
     return (
         <StyledGraph>
@@ -100,9 +204,32 @@ const Index = () => {
                         <span>Premium</span>
                     </div>
                 </div>
-                <div></div>
+                <div className='select-month'>
+                    <Dropdown
+                        name=''
+                        options={months}
+                        defaultValue="Select months"
+                        handleFilterChange={(name, value) => handleGraphData(data, value)}
+                    />
+                </div>
             </div>
-            <Line height={140} data={data} options={options} />
+            {loading ? (
+                <Skeleton
+                    animation="wave"
+                    sx={{
+                        height: '65%',
+                        transform: 'inherit',
+                        '@media screen and (max-width: 1280px)': {
+                            height: '40%'
+                        },
+                        '@media screen and (max-width: 520px)': {
+                            height: '20%'
+                        }
+                    }}
+                />
+            ) : (
+                <Line height={140} data={graphData} options={options} />
+            )}
         </StyledGraph>
     )
 }

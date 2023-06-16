@@ -1,3 +1,8 @@
+export const truncatedString = (text) => {
+    const truncatedText = text.length > 30 ? `${text.slice(0, 30)}...` : text
+    return truncatedText
+}
+
 export const getPlanType = (str) => {
     const regex = /×\s([^(\s]+)/
     const match = str?.match(regex)

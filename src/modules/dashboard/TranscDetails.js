@@ -76,7 +76,7 @@ const Index = () => {
                             </TableRow>
                         ))
                     ) : (
-                        transactions.map((item, index) => (
+                        transactions.slice(0, 8).map((item, index) => (
                             <StyledTableRow key={index}>
                                 <StyledTableCell
                                     size="12px"

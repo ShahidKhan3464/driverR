@@ -27,12 +27,13 @@ const Index = () => {
     const handleSearchQueryChange = (value) => setSearchQuery(value.trim())
 
     const getData = useCallback(async () => {
+        const params = { blocked: true }
         try {
             setLoading(true)
-            const response = await api.get('/super-admin/view-all-drivers')
+            const response = await api.get('/super-admin/view-all-drivers', params)
             const data = response.data.result.data
-            const blockedDrivers = data.filter(item => item.applicationStatus === 'BLOCK')
-            setBlockedDrivers(blockedDrivers)
+            // const blockedDrivers = data.filter(item => item.applicationStatus === 'BLOCK')
+            setBlockedDrivers(data)
             setLoading(false)
         }
         catch (error) {
@@ -94,7 +95,7 @@ const Index = () => {
         <Content>
             <ContentContainer>
                 <div className='table'>
-                    <div className='table_blocked-header'>
+                    <div className='table_header'>
                         <StyledTableHeading>Blocked drivers</StyledTableHeading>
                         <TableSearchHandler handleSearchQueryChange={handleSearchQueryChange} />
                     </div>

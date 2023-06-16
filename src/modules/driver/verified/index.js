@@ -25,7 +25,8 @@ const experience = [
     { value: '2', text: '1-2 years' },
     { value: '3', text: '2-3 years' },
     { value: '4', text: '3-4 years' },
-    { value: '5', text: '+5 years' },
+    { value: '5', text: '4-5 years' },
+    { value: '+5', text: '+5 years' },
 ]
 
 const Index = () => {
@@ -42,11 +43,20 @@ const Index = () => {
     })
 
     const filteredDrivers = drivers.filter((item) => {
+        let experienceMatch = true
         const fullName = `${item.firstName} ${item.lastName}`
         const statusMatch = filter.status === '' || item.isActive === filter.status
         const employmentMatch = !filter.employmentStatus || item.employmentStatus.toLowerCase() === filter.employmentStatus
         const genderMatch = !filter.gender || item.gender.toLowerCase() === filter.gender
-        const experienceMatch = !filter.experience || item.drivingExperience === filter.experience
+
+        if (filter.experience === '+5') {
+            experienceMatch = item.drivingExperience > 5
+        }
+
+        else {
+            experienceMatch = !filter.experience || item.drivingExperience === filter.experience
+        }
+
         const searchMatch = !searchQuery
             || fullName.toLowerCase().includes(searchQuery.toLowerCase())
             || item.email.toLowerCase().includes(searchQuery.toLowerCase())
@@ -60,7 +70,7 @@ const Index = () => {
             setLoading(true)
             const response = await api.get('/super-admin/view-all-drivers')
             const data = response.data.result.data
-            const approvedDrivers = data.filter(item => item.applicationStatus === 'APPROVE')
+            const approvedDrivers = data.filter(item => item.profileStatus === 'APPROVE')
             setDrivers(approvedDrivers)
             setLoading(false)
         }
@@ -81,22 +91,32 @@ const Index = () => {
         setFilter({ ...filter, [name]: value })
     }
 
-    // const handleDriverDelete = async (id) => {
-    //     const data = { driverId: id }
-    //     try {
-    //         await api.delete('/super-admin/remove-driver', data)
-    //         getData()
-    //     }
-    //     catch (error) {
-    //         const tokenExpired = error.response?.data.message
-    //         if (tokenExpired === 'Token expired, access denied') {
-    //             localStorage.clear()
-    //             navigate("/")
-    //             return
-    //         }
-    //         SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
-    //     }
-    // }
+    const handleApplication = async (id, status) => {
+        const profileStatus = status
+        const params = {
+            driverId: id,
+            profileStatus,
+        }
+
+        try {
+            const response = await api.put('/super-admin/manage-driver-profile', params)
+            if (response.data.status) {
+                if (profileStatus === 'BLOCK') {
+                    SweetAlert('success', 'Blocked', 'This application has been blocked Successfully')
+                }
+            }
+            getData()
+        }
+        catch (error) {
+            const tokenExpired = error.response?.data.message
+            if (tokenExpired === 'Token expired, access denied') {
+                localStorage.clear()
+                navigate("/")
+                return
+            }
+            SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+        }
+    }
 
     const handleDriverStatus = async (id, newStatus) => {
         const data = { driverId: id, isActive: newStatus === 'Active' ? true : false }
@@ -149,7 +169,12 @@ const Index = () => {
                         </div>
                         <TableSearchHandler handleSearchQueryChange={handleSearchQueryChange} />
                     </div>
-                    <List data={filteredDrivers} loading={loading} handleDriverStatus={handleDriverStatus} />
+                    <List
+                        loading={loading}
+                        data={filteredDrivers}
+                        handleApplication={handleApplication}
+                        handleDriverStatus={handleDriverStatus}
+                    />
                 </div>
             </ContentContainer>
         </Content>
