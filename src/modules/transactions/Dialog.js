@@ -98,6 +98,10 @@ const Index = ({ open, data, dialogType, setOpen }) => {
                     right: 16,
                     padding: 0,
                     position: 'absolute',
+                    '@media screen and (max-width: 520px)': {
+                        top: 6,
+                        right: 6,
+                    }
                 }}
             >
                 <img src='/images/pop-cross-icon.svg' alt='cross-icon' />

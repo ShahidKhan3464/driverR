@@ -129,6 +129,9 @@ const Index = () => {
                                             fontStyle: 'normal',
                                             letterSpacing: '0.5px',
                                             fontFamily: 'SF Pro Text',
+                                            '@media screen and (max-width: 520px)': {
+                                                fontSize: '14px',
+                                            }
                                         },
                                         '& .MuiOutlinedInput-root': {
                                             '& fieldset legend': {

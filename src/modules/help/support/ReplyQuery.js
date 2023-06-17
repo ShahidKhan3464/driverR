@@ -143,7 +143,7 @@ const Index = ({ queriesData, setReply }) => {
                 </div>
 
                 <StyledChats>
-                    <Messages id={queriesData.sender} messages={messages} />
+                    <Messages id={queriesData?.companyId?._id} messages={messages} />
                 </StyledChats>
             </div>
 

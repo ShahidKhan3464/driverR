@@ -162,20 +162,18 @@ const Index = () => {
 
     const handleRemoveApplication = async (id = null) => {
         const params = { driverIds: id ? [id] : selected }
-
         try {
             const response = await api.delete('/super-admin/remove-drivers-application', params)
             if (response.data.status) {
                 if (id) {
                     SweetAlert('success', 'Removed', 'This application has been removed Successfully')
-                    return
                 }
                 else if (selected) {
                     SweetAlert('success', 'Removed', 'Selected applications have been removed Successfully')
                 }
             }
-            setSelected([])
             getData()
+            setSelected([])
         }
         catch (error) {
             const tokenExpired = error.response?.data.message
@@ -197,7 +195,7 @@ const Index = () => {
 
                 <div className='text'>
                     <h3>Remove!</h3>
-                    <p>Are you sure you want to remove these “Drivers”?</p>
+                    <p>Are you sure you want to remove {selected.length > 1 ? 'these “Drivers”?' : 'this "Driver"?'} </p>
                 </div>
                 <div className='btn-container'>
                     <button
