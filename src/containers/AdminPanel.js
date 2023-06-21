@@ -1,5 +1,7 @@
 import React, { lazy, useEffect, useState } from 'react';
 import { Layout, Space } from 'antd';
+import Badge from '@mui/material/Badge';
+import { useGlobalContext } from 'contextApi';
 import { StyledHeader, StyledMbHeader } from './style';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 const Help = lazy(() => import('modules/help'));
@@ -11,6 +13,7 @@ const JobDetail = lazy(() => import('modules/jobPost/Detail'));
 const Transactions = lazy(() => import('modules/transactions'));
 const Subscription = lazy(() => import('modules/subscription'));
 const DriverDetail = lazy(() => import('modules/driver/Detail'));
+const Notifications = lazy(() => import('modules/notifications'));
 const CompanyDetail = lazy(() => import('modules/company/Detail'));
 const BlockedDrivers = lazy(() => import('modules/driver/blocked'));
 const VerifiedDrivers = lazy(() => import('modules/driver/verified'));
@@ -21,6 +24,7 @@ const CompanyApplications = lazy(() => import('modules/company/applications'));
 
 const Index = () => {
     const navigate = useNavigate()
+    const { notiQuantity } = useGlobalContext()
     const authToken = localStorage.getItem('authToken')
     const [sidebarVisible, setSidebarVisible] = useState(false)
 
@@ -35,6 +39,7 @@ const Index = () => {
     useEffect(() => {
         if (!authToken) {
             navigate('/')
+            return
         }
 
         document.addEventListener("click", handleOutsideClick)
@@ -55,9 +60,15 @@ const Index = () => {
                             <button type='button' onClick={() => navigate('/admin/setting')}>
                                 <img src='/images/setting.svg' alt='setting' />
                             </button>
-                            <button type='button'>
-                                <img src='/images/notification.svg' alt='notification' />
-                            </button>
+                            <Badge
+                                max={10}
+                                color="success"
+                                badgeContent={notiQuantity}
+                            >
+                                <button type='button' onClick={() => navigate('/admin/notifications')}>
+                                    <img src='/images/notification.svg' alt='notification' />
+                                </button>
+                            </Badge>
                         </div>
                     </StyledHeader>
 
@@ -72,9 +83,15 @@ const Index = () => {
                             <button type='button' onClick={() => navigate('/admin/setting')}>
                                 <img src='/images/setting.svg' alt='setting' />
                             </button>
-                            <button type='button'>
-                                <img src='/images/notification.svg' alt='notification' />
-                            </button>
+                            <Badge
+                                max={10}
+                                color="success"
+                                badgeContent={notiQuantity}
+                            >
+                                <button type='button' onClick={() => navigate('/admin/notifications')}>
+                                    <img src='/images/notification.svg' alt='notification' />
+                                </button>
+                            </Badge>
                         </div>
                     </StyledMbHeader>
                     <Routes>
@@ -91,6 +108,7 @@ const Index = () => {
                         <Route path='/company/viewDetail/:id' element={<CompanyDetail />} />
                         <Route path='/transaction/list' element={<Transactions />} />
                         <Route path='/setting' element={<Setting />} />
+                        <Route path='/notifications' element={<Notifications />} />
                         <Route path='/subscription' element={<Subscription />} />
                         <Route path='/help' element={<Help />} />
                     </Routes>

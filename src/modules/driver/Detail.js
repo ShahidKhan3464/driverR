@@ -7,6 +7,7 @@ import SweetAlert from 'components/sweetAlert';
 import Breadcrumbs from 'components/breadCrumbs';
 import IconButton from '@mui/material/IconButton';
 import RejectCauseDialog from 'components/rejectDialog';
+import CircularProgress from '@mui/material/CircularProgress';
 import { StyledHeading, StyledTableHeading } from 'components/globaStyle';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ContentContainer, StyledDetailsContent, StyledAttachment } from './style';
@@ -18,14 +19,15 @@ const Index = () => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const [detail, setDetail] = useState(null)
+    const [loading, setLoading] = useState(false)
     const [attachment, setAttachment] = useState()
     const [dialogType, setDialogType] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false)
 
-    const documents = [
-        { text: 'Driving license', img: '/images/license.png' },
-        { text: 'Driving certificate', img: '/images/certificate.png' },
-    ]
+    // const documents = [
+    //     { text: 'Driving license', img: '/images/license.png' },
+    //     { text: 'Driving certificate', img: '/images/certificate.png' },
+    // ]
 
     const breadcrumbs = [
         <Link
@@ -111,11 +113,14 @@ const Index = () => {
 
     const getDriverDetail = useCallback(async () => {
         try {
+            setLoading(true)
             const params = { userId: id }
             const response = await api.get('/driver/get-profile-details', params)
             setDetail(response.data.result.data)
+            setLoading(false)
         }
         catch (error) {
+            setLoading(true)
             const tokenExpired = error.response?.data.message
             if (tokenExpired === 'Token expired, access denied') {
                 localStorage.clear()
@@ -123,6 +128,7 @@ const Index = () => {
                 return
             }
             SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+            setLoading(false)
         }
     }, [])
 
@@ -202,70 +208,101 @@ const Index = () => {
                             </div>
                         )}
                     </div>
-                    <div className='profile'>
-                        <div className='profile_logo'>
-                            <img src='/images/driver.svg' alt='driver' />
+
+                    {loading ? (
+                        <div
+                            style={{
+                                height: '45vh',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <CircularProgress color="inherit" />
                         </div>
-                        <div className='profile_content'>
-                            <div className='profile_content_text'>
-                                <div className='profile_content_text_box'>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Name</h3>
-                                        <p>{detail?.firstName} {detail?.lastName}</p>
-                                    </div>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Preferred location</h3>
-                                        <p>{detail?.preferredLocation}</p>
-                                    </div>
+                    ) : (
+                        <React.Fragment>
+                            <div className='profile'>
+                                <div className='profile_logo'>
+                                    <img src={detail?.profilePicture} alt='avatar' />
                                 </div>
+                                <div className='profile_content'>
+                                    <div className='profile_content_text'>
+                                        <div className='profile_content_text_box'>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Name</h3>
+                                                <p>{detail?.firstName} {detail?.lastName}</p>
+                                            </div>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Preferred location</h3>
+                                                <p>{detail?.preferredLocation}</p>
+                                            </div>
+                                        </div>
 
-                                <div className='profile_content_text_box'>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Email</h3>
-                                        <p>{detail?.email}</p>
-                                    </div>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Driving experience</h3>
-                                        {detail && (
-                                            <p>{detail?.drivingExperience} years</p>
-                                        )}
-                                    </div>
-                                </div>
+                                        <div className='profile_content_text_box'>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Email</h3>
+                                                <p>{detail?.email}</p>
+                                            </div>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Driving experience</h3>
+                                                {detail && (
+                                                    <p>{detail?.drivingExperience} years</p>
+                                                )}
+                                            </div>
+                                        </div>
 
-                                <div className='profile_content_text_box'>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Gender</h3>
-                                        <p>{detail?.gender}</p>
+                                        <div className='profile_content_text_box'>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Gender</h3>
+                                                <p>{detail?.gender}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div className='driving_materials'>
-                        {documents.map((item) => {
-                            return (
-                                <div key={item.text} className='driving_materials_document'>
+                            <div className='driving_materials'>
+                                <div className='driving_materials_document'>
                                     <div className='driving_materials_document_header'>
-                                        <StyledHeading>{item.text}</StyledHeading>
+                                        <StyledHeading>Driving license</StyledHeading>
                                         <button
                                             type='button'
                                             onClick={() => {
                                                 setDialogOpen(true)
                                                 setDialogType('view')
-                                                setAttachment(item.img)
+                                                setAttachment(detail?.drivingLicense)
                                             }}
                                         >
                                             View
                                         </button>
                                     </div>
                                     <div className='driving_materials_document_attachment'>
-                                        <img src={item.img} alt='document' />
+                                        <img src={detail?.drivingLicense} alt='license' />
                                     </div>
                                 </div>
-                            )
-                        })}
-                    </div>
+
+                                <div className='driving_materials_document'>
+                                    <div className='driving_materials_document_header'>
+                                        <StyledHeading>Driving certificate</StyledHeading>
+                                        <button
+                                            type='button'
+                                            onClick={() => {
+                                                setDialogOpen(true)
+                                                setDialogType('view')
+                                                setAttachment(detail?.drivingCertificate)
+                                            }}
+                                        >
+                                            View
+                                        </button>
+                                    </div>
+                                    <div className='driving_materials_document_attachment'>
+                                        <img src={detail?.drivingCertificate} alt='certificate' />
+                                    </div>
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    )}
                 </StyledDetailsContent>
             </ContentContainer>
         </Content>

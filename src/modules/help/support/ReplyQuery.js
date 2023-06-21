@@ -106,7 +106,12 @@ const Index = ({ queriesData, setReply }) => {
             <div className='reply-query_content'>
                 <div className='reply-query_content_top'>
                     <div className='reply-query_content_top_left'>
-                        <button type='button' onClick={() => setReply(false)}>
+                        <button
+                            type='button'
+                            onClick={() => {
+                                setReply(false)
+                            }}
+                        >
                             <img src='/images/back-arrow.svg' alt='back-arrow' />
                         </button>
                         <div className='reply-query_content_top_left_subject'>

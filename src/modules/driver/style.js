@@ -157,6 +157,7 @@ export const StyledDetailsContent = styled.div`
         &_logo {
             width: 132px;
             height: 132px;
+            border-radius: 50%;
 
             @media screen and (max-width: 520px) {
                 width: 96px;
@@ -166,6 +167,8 @@ export const StyledDetailsContent = styled.div`
             img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
             }
         }
         
@@ -223,13 +226,13 @@ export const StyledDetailsContent = styled.div`
 
     .driving_materials {
         gap: 32px;
-        display: flex;
+        display: grid;
         padding: 24px 32px;
-        align-items: center;
         border-top: 1px solid #E7E7E7;
+        grid-template-columns: 1fr 1fr;
 
         @media screen and (max-width: 768px) {
-            flex-wrap: wrap;
+            grid-template-columns: 1fr;
         }
 
         @media screen and (max-width: 520px) {

@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import ApiClient from 'api';
 import { Form } from "antd";
 import { Formik, } from "formik";
 import Dialog from 'components/dialog';
 import { StyledGeneral } from './style';
 import EmailContent from './EmailContent';
+import { useGlobalContext } from 'contextApi';
+import { useNavigate } from 'react-router-dom';
 import SweetAlert from 'components/sweetAlert';
 import PasswordContent from './PasswordContent';
 import TextField from '@mui/material/TextField';
 import ImageUploading from "react-images-uploading";
 import { primaryBlue, grey300 } from 'components/globaStyle';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Index = () => {
+    const api = new ApiClient()
+    const navigate = useNavigate()
+    const { getLogo } = useGlobalContext()
     const [image, setImage] = useState(null)
+    const [loading, setLoading] = useState(false)
     const [dialogType, setDialogType] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false)
     const [email, setEmail] = useState(localStorage.getItem('email'))
@@ -40,11 +48,40 @@ const Index = () => {
         )
     }
 
-    const handleSubmit = async (data, { resetForm }) => {
-        resetForm()
-        setImage(null)
-        data.image = image
-        SweetAlert('success', 'Success', 'Successfully updated')
+    const handleSubmit = async () => {
+        const file = image[0].file
+        const formData = new FormData()
+        formData.append('image', file)
+
+        try {
+            setLoading(true)
+            const response = await api.post('/super-admin/upload-logo', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
+            if (response.data.status) {
+                SweetAlert('success', 'Success', 'Logo has been uploaded Successfully')
+                getLogo()
+                setImage(null)
+                setLoading(false)
+                return
+            }
+            setLoading(false)
+            SweetAlert('error', 'Warning!', response.data.message)
+        }
+        catch (error) {
+            setLoading(true)
+            const tokenExpired = error.response?.data.message
+            if (tokenExpired === 'Token expired, access denied') {
+                localStorage.clear()
+                navigate("/")
+                return
+            }
+            SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+            setLoading(false)
+        }
     }
 
     return (
@@ -57,8 +94,7 @@ const Index = () => {
                 />
             }
             <Formik
-                initialValues={{ email: "" }}
-                // validationSchema={validationSchema}
+                initialValues={{ '': '' }}
                 onSubmit={handleSubmit}
             >
                 {(formik) => {
@@ -166,7 +202,14 @@ const Index = () => {
                                         background: !image || !image.length ? grey300 : primaryBlue
                                     }}
                                 >
-                                    Save changes
+                                    {loading ? (
+                                        <CircularProgress
+                                            size={22}
+                                            color='inherit'
+                                        />
+                                    ) : (
+                                        <span>Save changes</span>
+                                    )}
                                 </button>
                             </div>
                         </Form>

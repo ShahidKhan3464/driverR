@@ -7,6 +7,7 @@ import SweetAlert from 'components/sweetAlert';
 import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from 'components/breadCrumbs';
 import RejectDialog from 'components/rejectDialog';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { ContentContainer, StyledDetailsContent } from './style';
 import { StyledStatus, StyledTableHeading } from 'components/globaStyle';
@@ -18,6 +19,7 @@ const Index = () => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const [detail, setDetail] = useState()
+    const [loading, setLoading] = useState(false)
     const [dialogType, setDialogType] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -107,11 +109,14 @@ const Index = () => {
 
     const getCompanyDetail = useCallback(async () => {
         try {
+            setLoading(true)
             const params = { userId: id }
             const response = await api.get('/company/get-profile', params)
             setDetail(response.data.result.data)
+            setLoading(false)
         }
         catch (error) {
+            setLoading(true)
             const tokenExpired = error.response?.data.message
             if (tokenExpired === 'Token expired, access denied') {
                 localStorage.clear()
@@ -119,6 +124,7 @@ const Index = () => {
                 return
             }
             SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+            setLoading(false)
         }
     }, [])
 
@@ -172,65 +178,80 @@ const Index = () => {
                         )}
                     </div>
 
-                    <div className='profile'>
-                        <div className='profile_logo'>
-                            <img src='/images/fedex.svg' alt='fedex' />
+                    {loading ? (
+                        <div
+                            style={{
+                                height: '45vh',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <CircularProgress color="inherit" />
                         </div>
-                        <div className='profile_content'>
-                            <div className='profile_content_text'>
-                                <div className='profile_content_text_box'>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Company name</h3>
-                                        <p>{detail?.name}</p>
-                                    </div>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Company size</h3>
-                                        <p>{detail?.companySize}</p>
-                                    </div>
+                    ) : (
+                        <React.Fragment>
+                            <div className='profile'>
+                                <div className='profile_logo'>
+                                    <img src={detail?.profilePicture} alt='avatar' />
                                 </div>
+                                <div className='profile_content'>
+                                    <div className='profile_content_text'>
+                                        <div className='profile_content_text_box'>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Company name</h3>
+                                                <p>{detail?.name}</p>
+                                            </div>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Company size</h3>
+                                                <p>{detail?.companySize}</p>
+                                            </div>
+                                        </div>
 
-                                <div className='profile_content_text_box'>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Company email</h3>
-                                        <p>{detail?.email}</p>
-                                    </div>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Company founded</h3>
-                                        <p>{detail?.establishDate ? moment(detail.establishDate).format('DD/MM/YYYY') : ""}</p>
-                                    </div>
-                                </div>
+                                        <div className='profile_content_text_box'>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Company email</h3>
+                                                <p>{detail?.email}</p>
+                                            </div>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Company founded</h3>
+                                                <p>{detail?.establishDate ? moment(detail.establishDate).format('DD/MM/YYYY') : ""}</p>
+                                            </div>
+                                        </div>
 
-                                <div className='profile_content_text_box'>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Company registration number</h3>
-                                        <p>{detail?.registrationNumber}</p>
+                                        <div className='profile_content_text_box'>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Company registration number</h3>
+                                                <p>{detail?.registrationNumber}</p>
+                                            </div>
+                                            <div className='profile_content_text_box_pair'>
+                                                <h3>Company address</h3>
+                                                <p>{detail?.address}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='profile_content_text_box_pair'>
-                                        <h3>Company address</h3>
-                                        <p>{detail?.address}</p>
+                                    <div className='profile_content_status'>
+                                        {detail && (
+                                            <StyledStatus
+                                                width={detail.isActive ? '65px' : '100px'}
+                                                color={detail.isActive ? '#22C55E' : '#EF4444'}
+                                                background={detail.isActive ? 'rgba(34, 197, 94, 0.05)' : 'rgba(239, 68, 68, 0.05)'}
+                                            >
+                                                {detail.isActive ? 'Active' : 'In-active'}
+                                            </StyledStatus>
+                                        )}
                                     </div>
                                 </div>
                             </div>
-                            <div className='profile_content_status'>
-                                {detail && (
-                                    <StyledStatus
-                                        width={detail.isActive ? '65px' : '100px'}
-                                        color={detail.isActive ? '#22C55E' : '#EF4444'}
-                                        background={detail.isActive ? 'rgba(34, 197, 94, 0.05)' : 'rgba(239, 68, 68, 0.05)'}
-                                    >
-                                        {detail.isActive ? 'Active' : 'In-active'}
-                                    </StyledStatus>
-                                )}
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className='description'>
-                        <h3>Overview</h3>
-                        <p>
-                            {detail?.aboutInfo}
-                        </p>
-                    </div>
+                            <div className='description'>
+                                <h3>Overview</h3>
+                                <p>
+                                    {detail?.aboutInfo}
+                                </p>
+                            </div>
+                        </React.Fragment>
+                    )}
                 </StyledDetailsContent>
             </ContentContainer>
         </Content>

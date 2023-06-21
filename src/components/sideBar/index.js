@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Dialog from 'components/dialog';
+import { useGlobalContext } from 'contextApi';
 import Accordion from '@mui/material/Accordion';
 import { SideBar, SideBarContainer } from './style';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -12,6 +13,7 @@ const Index = ({ sidebarVisible }) => {
     const navigate = useNavigate()
     const location = useLocation().pathname
     const array = location.split("/")
+    const { logo } = useGlobalContext()
     const [dialogOpen, setDialogOpen] = useState(false)
     const detail = indices.map(index => array[index]).join('/')
 
@@ -51,7 +53,7 @@ const Index = ({ sidebarVisible }) => {
             <SideBarContainer>
                 <div className='sidebarContainer_top'>
                     <div className='sidebarContainer_top_logo'>
-                        <img src='/images/logo.svg' alt='logo' />
+                        <img src={logo} alt='logo' />
                     </div>
                     <h2>TIRminator</h2>
                 </div>

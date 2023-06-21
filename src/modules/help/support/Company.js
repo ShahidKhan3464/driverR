@@ -136,7 +136,15 @@ const Index = ({ data, filteredItems, activeChip, loading, setData, setActiveChi
                                                             alignItems: 'center'
                                                         }}
                                                     >
-                                                        <img src='/images/fedex-logo.svg' alt='fedex' />
+                                                        <div style={{ width: '36px', height: '36px', borderRadius: '50%' }}>
+                                                            <img
+                                                                alt='avatar'
+                                                                width="100%"
+                                                                height="100%"
+                                                                src={item.companyId?.profilePicture}
+                                                                style={{ borderRadius: '50%', objectFit: 'cover' }}
+                                                            />
+                                                        </div>
                                                         <div>
                                                             {item.companyId?.name}
                                                             <span className='email'>{item.companyId?.email}</span>

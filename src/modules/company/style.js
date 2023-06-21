@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { grey500, grey600, grey700, grey800, infoLink } from "components/globaStyle";
+import { grey500, grey600, grey800, infoLink } from "components/globaStyle";
 
 export const ContentContainer = styled.div`
     margin-left: 272px;
@@ -157,6 +157,7 @@ export const StyledDetailsContent = styled.div`
         &_logo {
             width: 132px;
             height: 132px;
+            border-radius: 50%;
 
             @media screen and (max-width: 520px) {
                 width: 96px;
@@ -166,6 +167,8 @@ export const StyledDetailsContent = styled.div`
             img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
             }
         }
 

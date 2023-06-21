@@ -235,7 +235,15 @@ const Index = ({ data, loading, handleJobDelete, handleJobStatus }) => {
                                                 alignItems: 'center'
                                             }}
                                         >
-                                            <img src='/images/fedex-logo.svg' alt='fedex' />
+                                            <div style={{ width: '36px', height: '36px', borderRadius: '50%' }}>
+                                                <img
+                                                    alt='avatar'
+                                                    width="100%"
+                                                    height="100%"
+                                                    src={item.companyId?.profilePicture}
+                                                    style={{ borderRadius: '50%', objectFit: 'cover' }}
+                                                />
+                                            </div>
                                             {item.companyId?.name}
                                         </div>
                                     </StyledTableCell>

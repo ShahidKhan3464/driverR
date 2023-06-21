@@ -228,7 +228,7 @@ const Index = () => {
                     }}
                 />
             ) : (
-                <Line height={140} data={graphData} options={options} />
+                <Line height={180} data={graphData} options={options} />
             )}
         </StyledGraph>
     )

@@ -243,7 +243,15 @@ const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
                                                     alignItems: 'center'
                                                 }}
                                             >
-                                                <img src='/images/fedex-logo.svg' alt='fedex' />
+                                                <div style={{ width: '36px', height: '36px', borderRadius: '50%' }}>
+                                                    <img
+                                                        alt='avatar'
+                                                        width="100%"
+                                                        height="100%"
+                                                        src={item.profilePicture}
+                                                        style={{ borderRadius: '50%', objectFit: 'cover' }}
+                                                    />
+                                                </div>
                                                 {item.name}
                                             </div>
                                         </StyledTableCell>
@@ -264,7 +272,7 @@ const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
                                                 id={item._id}
                                                 options={options}
                                                 status={item.isActive}
-                                                userId={item.userId._id}
+                                                userId={item?.userId?._id}
                                                 handleTableMenu={handleTableMenu}
                                             />
                                         </StyledTableCell>
