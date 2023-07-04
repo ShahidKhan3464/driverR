@@ -202,7 +202,7 @@ const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell>Email</StyledTableCell>
                             <StyledTableCell>No of job posts</StyledTableCell>
-                            <StyledTableCell>Subscription plan</StyledTableCell>
+                            {/* <StyledTableCell>Subscription plan</StyledTableCell> */}
                             <StyledTableCell>Status</StyledTableCell>
                             <StyledTableCell>Actions</StyledTableCell>
                         </TableRow>
@@ -257,7 +257,7 @@ const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
                                         </StyledTableCell>
                                         <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.numJobs}</StyledTableCell>
-                                        <StyledTableCell>{item.subs}</StyledTableCell>
+                                        {/* <StyledTableCell>{item.subs}</StyledTableCell> */}
                                         <StyledTableCell>
                                             <StyledStatus
                                                 width={item.isActive ? '65px' : '82px'}

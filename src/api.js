@@ -4,7 +4,7 @@ import axios from 'axios';
 const authToken = localStorage.getItem('authToken')
 
 const baseURL = 'https://dev.tirminator.com'
-// const baseURL = 'https://eb0c-39-55-247-229.ngrok-free.app'
+// const baseURL = 'https://66f2-39-55-247-229.ngrok-free.app'
 // const baseURL = 'https://100b-119-155-49-70.ngrok-free.app'
 
 class ApiClient {

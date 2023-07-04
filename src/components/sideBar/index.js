@@ -53,7 +53,9 @@ const Index = ({ sidebarVisible }) => {
             <SideBarContainer>
                 <div className='sidebarContainer_top'>
                     <div className='sidebarContainer_top_logo'>
-                        <img src={logo} alt='logo' />
+                        {logo && (
+                            <img src={logo} alt='logo' />
+                        )}
                     </div>
                     <h2>TIRminator</h2>
                 </div>

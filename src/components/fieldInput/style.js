@@ -49,6 +49,9 @@ export const StyledTextField = styled(TextField)((props) => ({
         '&.Mui-focused fieldset': {
             border: props.error ? '2px solid #B3261E' : `2px solid ${primaryBlue}`,
         },
+        "& :-webkit-autofill": {
+            boxShadow: '0 0 0 30px white inset',
+        }
     },
     '& .MuiOutlinedInput-input[type="number"]::-webkit-inner-spin-button, & .MuiOutlinedInput-input[type="number"]::-webkit-outer-spin-button': {
         margin: 0,

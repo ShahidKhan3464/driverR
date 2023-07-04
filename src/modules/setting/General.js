@@ -17,8 +17,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 const Index = () => {
     const api = new ApiClient()
     const navigate = useNavigate()
-    const { getLogo } = useGlobalContext()
     const [image, setImage] = useState(null)
+    const { logo, getLogo } = useGlobalContext()
     const [loading, setLoading] = useState(false)
     const [dialogType, setDialogType] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -55,17 +55,34 @@ const Index = () => {
 
         try {
             setLoading(true)
-            const response = await api.post('/super-admin/upload-logo', formData, {
+            const url = '/image/upload' + (logo ? `?previousImage=${logo}` : '')
+            const response = await api.post(url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
 
             if (response.data.status) {
-                SweetAlert('success', 'Success', 'Logo has been uploaded Successfully')
-                getLogo()
-                setImage(null)
-                setLoading(false)
+                try {
+                    const additionalResponse = await api.post('/super-admin/add-logo', { logo: response.data.result.data })
+                    if (additionalResponse.data.status) {
+                        SweetAlert('success', 'Success', 'Logo has been uploaded Successfully')
+                        getLogo()
+                        setImage(null)
+                        setLoading(false)
+                    }
+                }
+                catch (error) {
+                    setLoading(true)
+                    const tokenExpired = error.response?.data.message
+                    if (tokenExpired === 'Token expired, access denied') {
+                        localStorage.clear()
+                        navigate("/")
+                        return
+                    }
+                    SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
+                    setLoading(false)
+                }
                 return
             }
             setLoading(false)
@@ -127,7 +144,7 @@ const Index = () => {
                                                     <span>Logo</span>
                                                 </div>
                                             ) : (
-                                                imageList.map((image, index) => (
+                                                imageList?.map((image, index) => (
                                                     <div key={index} className="image-item">
                                                         <div className='image-shown'>
                                                             <img src={image.data_url} alt="logo" width="100" />
