@@ -138,6 +138,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                     <TextFieldInput
                                                         type="text"
                                                         width="10.5%"
+                                                        mbWidth="27%"
                                                         shrink={true}
                                                         autoComplete=""
                                                         label="Question"
@@ -159,6 +160,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                     <TextFieldInput
                                                         type="text"
                                                         width="13%"
+                                                        mbWidth="34%"
                                                         shrink={true}
                                                         autoComplete=""
                                                         label="Description"
@@ -183,9 +185,8 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                         </button>
                                         <button
                                             type='submit'
-                                            // className='save-btn'
-                                            className={`save-btn ${dialogType === 'edit' && !formik.dirty && !isFormDirty ? 'disabled-btn' : ''}`}
                                             disabled={dialogType === 'edit' && !formik.dirty && !isFormDirty}
+                                            className={`save-btn ${dialogType === 'edit' && !formik.dirty && !isFormDirty ? 'disabled-btn' : ''}`}
                                         >
                                             {dialogType === 'add' ? 'Publish' : dialogType === 'edit' && 'Save'}
                                         </button>

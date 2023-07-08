@@ -92,11 +92,12 @@ const Index = () => {
                                         {({ field }) => (
                                             <React.Fragment>
                                                 <TextFieldInput
-                                                    width="10%"
+                                                    label=""
+                                                    width="0%"
                                                     type="email"
                                                     mbWidth="15%"
-                                                    label="Email"
                                                     field={{ ...field }}
+                                                    placeholder='Enter Email'
                                                     autoComplete="current-password"
                                                     error={formik.errors.email && formik.touched.email}
                                                 />
@@ -112,10 +113,11 @@ const Index = () => {
                                         {({ field }) => (
                                             <React.Fragment>
                                                 <TextFieldInput
-                                                    width="16%"
+                                                    label=""
+                                                    width="0%"
                                                     mbWidth="24%"
-                                                    label="Password"
                                                     field={{ ...field }}
+                                                    placeholder='Enter Password'
                                                     autoComplete="current-password"
                                                     type={showPassword ? 'text' : 'password'}
                                                     error={formik.errors.password && formik.touched.password}

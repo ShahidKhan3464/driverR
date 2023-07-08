@@ -64,6 +64,7 @@ export const ContentContainer = styled.div`
 
 export const StyledExportButton = styled.button`
     gap: 8px;
+    padding: 0;
     border: none;
     outline: none;
     display: flex;

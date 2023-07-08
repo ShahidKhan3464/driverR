@@ -8,7 +8,6 @@ const ForgotPassword = lazy(() => import('pages/home/ForgotPassword'));
 const PasswordChanged = lazy(() => import('pages/home/PasswordChanged'));
 
 const App = () => {
-  // const isAuthenticated = useAuth()
 
   const SplashScreen = () => {
     const style = {

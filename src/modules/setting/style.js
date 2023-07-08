@@ -163,6 +163,10 @@ export const StyledGeneral = styled.div`
             display: grid;
             grid-template-columns: 1fr 100px;
 
+            @media screen and (max-width: 520px) {
+                gap: 0;
+            }
+
             .update-email-btn {
                 padding: 0;
                 border: none;

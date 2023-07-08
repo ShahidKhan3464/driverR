@@ -251,6 +251,7 @@ export const StyledDetailsContent = styled.div`
             color: ${grey600};
             line-height: 25px;
             font-style: normal;
+            word-break: break-word;
             font-family: SF Pro Text;      
             
             @media screen and (max-width: 520px) {

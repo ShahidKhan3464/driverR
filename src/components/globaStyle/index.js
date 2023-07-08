@@ -187,9 +187,15 @@ export const FieldErrorMessage = styled.p`
     margin-top: 2px;
     font-size: 12px;
     font-weight: 400;
-    position absolute;
     line-height: 16px;
+    position: absolute;
     font-style: normal;
     letter-spacing: 0.4px;
     font-family: SF Pro Text;
+
+    @media screen and (max-width: 520px) {
+        font-size: 9px;
+        line-height: 10px;
+        letter-spacing: 0;
+    }
 `

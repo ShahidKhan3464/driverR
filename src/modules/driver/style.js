@@ -31,12 +31,17 @@ export const ContentContainer = styled.div`
             align-items: center;
             justify-content: space-between;
 
+            @media screen and (max-width: 520px) {
+                gap: 4px;
+            }
+
             .disabled-btn {
                 cursor: not-allowed;
             }
 
             button {
                 gap: 8px;
+                padding: 0;
                 border: none;
                 outline: none;
                 display: flex;

@@ -3,14 +3,13 @@ import Dialog from 'components/dialog';
 import { useGlobalContext } from 'contextApi';
 import Accordion from '@mui/material/Accordion';
 import { SideBar, SideBarContainer } from './style';
+import { Link, useLocation } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Index = ({ sidebarVisible }) => {
     const indices = [1, 2, 3]
-    const navigate = useNavigate()
     const location = useLocation().pathname
     const array = location.split("/")
     const { logo } = useGlobalContext()
@@ -19,7 +18,7 @@ const Index = ({ sidebarVisible }) => {
 
     const handleLogout = () => {
         localStorage.clear()
-        navigate("/")
+        window.location.href = "/"
     }
 
     const logoutContent = () => {

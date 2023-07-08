@@ -22,7 +22,7 @@ const Index = () => {
         confirmNewPassword: "",
     }
 
-    const PasswordInput = ({ label, name, width }) => {
+    const PasswordInput = ({ label, name, width, mbWidth }) => {
         const [showPassword, setShowPassword] = useState(false)
 
         return (
@@ -34,6 +34,7 @@ const Index = () => {
                             width={width}
                             label={label}
                             autoComplete=""
+                            mbWidth={mbWidth}
                             field={{ ...field }}
                             type={showPassword ? 'text' : 'password'}
                             error={form.errors[name] && form.touched[name]}
@@ -107,15 +108,30 @@ const Index = () => {
                             onFinish={formik.handleSubmit}
                         >
                             <div className='field-control'>
-                                <PasswordInput label='Current password' name='currentPassword' width="16.5%" />
+                                <PasswordInput
+                                    width="16.5%"
+                                    mbWidth="43%"
+                                    name='currentPassword'
+                                    label='Current password'
+                                />
                             </div>
 
                             <div className='new-confirm_password'>
-                                <div className='match-password'>
-                                    <PasswordInput label='New password' name='newPassword' width="29.5%" />
+                                <div className='match-password' style={{ marginBottom: '15px' }}>
+                                    <PasswordInput
+                                        width="29.5%"
+                                        mbWidth="35%"
+                                        name='newPassword'
+                                        label='New password'
+                                    />
                                 </div>
                                 <div className='match-password'>
-                                    <PasswordInput label='Confirm password' name='confirmNewPassword' width="36%" />
+                                    <PasswordInput
+                                        width="36%"
+                                        mbWidth="43%"
+                                        label='Confirm password'
+                                        name='confirmNewPassword'
+                                    />
                                 </div>
                             </div>
 

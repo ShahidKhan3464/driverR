@@ -80,6 +80,7 @@ const Index = ({ plan, getData, setIsEdit }) => {
                                                     <TextFieldInput
                                                         type="text"
                                                         width='16.5%'
+                                                        mbWidth="30%"
                                                         autoComplete=""
                                                         label="Plan name"
                                                         field={{ ...field }}
@@ -98,6 +99,7 @@ const Index = ({ plan, getData, setIsEdit }) => {
                                                     <TextFieldInput
                                                         width='16%'
                                                         type="text"
+                                                        mbWidth="30%"
                                                         autoComplete=""
                                                         label="Plan price"
                                                         field={{ ...field }}
@@ -108,36 +110,6 @@ const Index = ({ plan, getData, setIsEdit }) => {
                                             )}
                                         </Field>
                                     </div>
-
-                                    {/* <div className='field-control'>
-                                        <Field name="month">
-                                            {({ field }) => (
-                                                <React.Fragment>
-                                                    <StyledFormControl
-                                                        fullWidth
-                                                        width="18%"
-                                                        error={formik.errors.month && formik.touched.month}
-                                                    >
-                                                        <InputLabel>Plan month</InputLabel>
-                                                        <Field
-                                                            as={Select}
-                                                            name='month'
-                                                            label="Plan month"
-                                                        // value={month}
-                                                        // onChange={(e) => setMonth(e.target.value)}
-                                                        >
-                                                            {months.map((month) => {
-                                                                return (
-                                                                    <MenuItem key={month.value} value={month.value}>{month.label}</MenuItem>
-                                                                )
-                                                            })}
-                                                        </Field>
-                                                    </StyledFormControl>
-                                                    <ErrorMessage name={field.name} component={FieldErrorMessage} />
-                                                </React.Fragment>
-                                            )}
-                                        </Field>
-                                    </div> */}
                                 </div>
 
                                 <div className='features'>

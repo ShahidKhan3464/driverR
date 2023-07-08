@@ -49,6 +49,7 @@ export const StyledTextField = styled(TextField)((props) => ({
         '&.Mui-focused fieldset': {
             border: props.error ? '2px solid #B3261E' : `2px solid ${primaryBlue}`,
         },
+
         "& :-webkit-autofill": {
             boxShadow: '0 0 0 30px white inset',
         }

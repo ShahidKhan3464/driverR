@@ -26,13 +26,19 @@ export const ContentContainer = styled.div`
     .notifications {
         &_header {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
 
             &_right {
                 gap: 20px;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
+
+                @media screen and (max-width: 520px) {
+                  gap: 5px;
+                }
 
                 .show-unread {
                     .customLabel {
@@ -45,6 +51,10 @@ export const ContentContainer = styled.div`
                             line-height: 18px;
                             font-style: normal;
                             font-family: SF Pro Text;
+
+                            @media screen and (max-width: 520px) {
+                                margin-left: 11px;
+                            }
                         }
                     }
                 }
@@ -74,6 +84,10 @@ export const ContentContainer = styled.div`
         &_list {
             margin-top: 32px;
 
+            @media screen and (max-width: 520px) {
+                margin-top: 10px;
+            }
+
             &_item {
                 padding-top: 12px;
                 padding-bottom: 8px;
@@ -94,6 +108,10 @@ export const ContentContainer = styled.div`
                     display: grid;
                     align-items: center;
                     grid-template-columns: auto 1fr;
+
+                    @media screen and (max-width: 520px) {
+                        align-items: inherit;
+                    }
 
                     .bell-icon {
                         width: 32px;
