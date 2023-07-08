@@ -95,7 +95,7 @@ const Index = () => {
                                                     label=""
                                                     width="0%"
                                                     type="email"
-                                                    mbWidth="15%"
+                                                    mbWidth="0%"
                                                     field={{ ...field }}
                                                     placeholder='Enter Email'
                                                     autoComplete="current-password"
@@ -115,7 +115,7 @@ const Index = () => {
                                                 <TextFieldInput
                                                     label=""
                                                     width="0%"
-                                                    mbWidth="24%"
+                                                    mbWidth="0%"
                                                     field={{ ...field }}
                                                     placeholder='Enter Password'
                                                     autoComplete="current-password"
