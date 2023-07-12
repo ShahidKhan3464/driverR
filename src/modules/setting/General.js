@@ -188,7 +188,10 @@ const Index = () => {
                                         },
                                         '& .MuiOutlinedInput-root': {
                                             '& fieldset legend': {
-                                                width: "27%"
+                                                width: "7%",
+                                                '@media screen and (max-width: 475px)': {
+                                                    width: '27%',
+                                                }
                                             }
                                         }
                                     }}
