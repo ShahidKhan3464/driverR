@@ -17,10 +17,16 @@ const Index = ({ queriesData, setReply }) => {
     const [status, setStatus] = useState(queriesData.status)
     const [messages, setMessages] = useState(queriesData.queries)
     const createdQueryDate = moment(queriesData.createdAt).format('DD MMM YYYY')
-    const lastReply = moment(queriesData.queries[queriesData.queries.length - 1]?.createdAt).fromNow()
+    const lastReply =
+        queriesData.queries.length === 0
+            ? moment(queriesData.createdAt).fromNow()
+            : moment(queriesData.queries[queriesData.queries.length - 1]?.createdAt).fromNow()
     const name =
         queriesData?.driverId ? `${queriesData.driverId.firstName} ${queriesData.driverId.lastName}`
             : queriesData?.companyId && queriesData.companyId.name
+    const profilePicture =
+        queriesData?.driverId ? queriesData.driverId.profilePicture
+            : queriesData?.companyId && queriesData.companyId.profilePicture
 
     const closed_pending_Status = (status) => {
         return (
@@ -116,7 +122,7 @@ const Index = ({ queriesData, setReply }) => {
                         </button>
                         <div className='reply-query_content_top_left_subject'>
                             <div className='avatar'>
-                                <img src='/images/avatar1.png' alt='avatar' />
+                                <img src={profilePicture} alt='avatar' />
                             </div>
                             <div>
                                 <h3>{queriesData.subject}</h3>
@@ -148,7 +154,11 @@ const Index = ({ queriesData, setReply }) => {
                 </div>
 
                 <StyledChats>
-                    <Messages id={queriesData?.companyId?._id} messages={messages} />
+                    <Messages
+                        messages={messages}
+                        profilePicture={profilePicture}
+                        id={queriesData?.companyId?._id}
+                    />
                 </StyledChats>
             </div>
 

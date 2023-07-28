@@ -176,7 +176,12 @@ const Index = ({ data, filteredItems, activeChip, loading, setData, setActiveChi
                                                         }
                                                     </StyledStatus>
                                                 </StyledTableCell>
-                                                <StyledTableCell>{moment(item.queries[item.queries.length - 1]?.createdAt).fromNow()}</StyledTableCell>
+                                                <StyledTableCell>
+                                                    {item.queries.length === 0
+                                                        ? moment(item.createdAt).fromNow()
+                                                        : moment(item.queries[item.queries.length - 1]?.createdAt).fromNow()
+                                                    }
+                                                </StyledTableCell>
                                                 <StyledTableCell align='center'>
                                                     <button
                                                         type='button'

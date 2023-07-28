@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
 import ApiClient from 'api';
+import moment from 'moment';
 import { Layout } from 'antd';
 import Dialog from 'components/dialog';
 import { ContentContainer } from '../style';
@@ -42,7 +43,8 @@ const Index = () => {
             const response = await api.get('/super-admin/view-all-companies')
             const data = response.data.result.data
             const companiesApplications = data.filter(item => (item.profileStatus === 'PENDING' || item.profileStatus === 'REJECT') && !item.removeApplication)
-            setCompanies(companiesApplications)
+            const sortedData = [...companiesApplications].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)))
+            setCompanies(sortedData)
             setLoading(false)
         }
         catch (error) {

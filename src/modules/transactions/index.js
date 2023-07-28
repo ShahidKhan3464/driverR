@@ -71,6 +71,7 @@ const Index = () => {
                     amount: item.total
                 }
             })
+            // const sortedData = [...manipulatedData].sort((a, b) => moment(b.date).diff(moment(a.date)))
             setTransactions(manipulatedData)
             setLoading(false)
         }

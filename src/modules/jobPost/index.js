@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
+import moment from 'moment';
 import ApiClient from 'api';
 import { Layout } from 'antd';
 import { ContentContainer } from './style';
@@ -89,7 +90,8 @@ const Index = () => {
         try {
             setLoading(true)
             const response = await api.get('/super-admin/view-all-jobs')
-            setJobs(response.data.result.data)
+            const sortedData = [...response.data.result.data].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)))
+            setJobs(sortedData)
             setLoading(false)
         }
         catch (error) {

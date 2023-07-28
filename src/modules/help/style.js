@@ -8,7 +8,7 @@ export const ContentContainer = styled.div`
     margin-bottom: 20px;
     background: #FFFFFF;
     border-radius: 16px;
-    padding: 20px 24px 60px;
+    padding: 20px 24px 10px;
     border: 1px solid #E7E7E7;
 
     @media screen and (max-width: 991px) {
@@ -339,7 +339,8 @@ export const StyledReplyQuery = styled.div`
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
-    min-height: calc(100vh - 185px);
+    /* min-height: calc(100vh - 185px); */
+    min-height: calc(100vh - 265px);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
 
     @media screen and (max-width: 520px) {
@@ -385,7 +386,8 @@ export const StyledReplyQuery = styled.div`
                             img {
                                 width: 100%;
                                 height: 100%;
-                                object-fit: contain;
+                                object-fit: cover;
+                                border-radius: 50%;
                             }
                         }
             
@@ -506,17 +508,13 @@ export const StyledReplyQuery = styled.div`
         
         &_form {
             .field-wrapper {
-                padding: 12px;
+                padding: 8px;
                 display: grid;
                 position: relative;
                 border-radius: 10px;
                 border: 1px solid #E5EAF4;
                 grid-template-columns: 1fr auto;
                 box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
-
-                @media screen and (max-width: 520px) {
-                    padding: 8px;
-                }   
 
                 .field-control {
                     input {
@@ -583,7 +581,7 @@ export const StyledReplyQuery = styled.div`
 `
 
 export const StyledChats = styled.div`
-    padding: 30px 0;
+    padding: 30px 0 60px;
 
     .messages {
         gap: 43px;
@@ -591,7 +589,7 @@ export const StyledChats = styled.div`
         overflow: auto;
         padding-right: 10px;
         flex-direction: column;
-        height: calc(100vh - 145px);
+        /* height: calc(100vh - 145px); */
 
         @media screen and (max-width: 520px) {
             gap: 25px;
@@ -681,7 +679,8 @@ export const StyledChats = styled.div`
                     img {
                         width: 100%;
                         height: 100%;
-                        object-fit: contain;
+                        object-fit: cover;
+                        border-radius: 50%;
                     }
                 }
 

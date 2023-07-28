@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
 import ApiClient from 'api';
+import moment from 'moment';
 import { Layout } from 'antd';
 import { ContentContainer } from '../style';
 import SweetAlert from 'components/sweetAlert';
@@ -31,9 +32,8 @@ const Index = () => {
         try {
             setLoading(true)
             const response = await api.get('/super-admin/view-all-drivers', params)
-            const data = response.data.result.data
-            // const blockedDrivers = data.filter(item => item.applicationStatus === 'BLOCK')
-            setBlockedDrivers(data)
+            const sortedData = [...response.data.result.data].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)))
+            setBlockedDrivers(sortedData)
             setLoading(false)
         }
         catch (error) {

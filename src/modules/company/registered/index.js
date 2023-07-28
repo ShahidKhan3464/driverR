@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
 import ApiClient from 'api';
+import moment from 'moment';
 import { Layout } from 'antd';
 import { ContentContainer } from '../style';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +49,8 @@ const Index = () => {
             const response = await api.get('/super-admin/view-all-companies')
             const data = response.data.result.data
             const registeredCompanies = data.filter(item => item.profileStatus === 'APPROVE')
-            setCompanies(registeredCompanies)
+            const sortedData = [...registeredCompanies].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)))
+            setCompanies(sortedData)
             setLoading(false)
         }
         catch (error) {

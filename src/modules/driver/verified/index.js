@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
 import ApiClient from 'api';
+import moment from 'moment';
 import { Layout } from 'antd';
 import { ContentContainer } from '../style';
 import SweetAlert from 'components/sweetAlert';
@@ -71,7 +72,8 @@ const Index = () => {
             const response = await api.get('/super-admin/view-all-drivers')
             const data = response.data.result.data
             const approvedDrivers = data.filter(item => item.profileStatus === 'APPROVE')
-            setDrivers(approvedDrivers)
+            const sortedData = [...approvedDrivers].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)))
+            setDrivers(sortedData)
             setLoading(false)
         }
         catch (error) {

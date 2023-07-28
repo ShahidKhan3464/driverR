@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment';
+import { useGlobalContext } from 'contextApi';
 
-const Index = ({ id, messages }) => {
+const Index = ({ id, profilePicture, messages }) => {
+    const { logo } = useGlobalContext()
 
     return (
         <div className="messages">
@@ -12,7 +14,10 @@ const Index = ({ id, messages }) => {
                     </div>
                     <div className='user'>
                         <div className='avatar'>
-                            <img src='/images/avatar1.png' alt='avatar' />
+                            <img
+                                alt='avatar'
+                                src={message.sender === id ? profilePicture : logo}
+                            />
                         </div>
                         <div className='date'>
                             <span>{moment(message.createdAt).format('Do MMMM')}</span>

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
+import moment from 'moment';
 import ApiClient from 'api';
 import { Layout } from 'antd';
 import Dialog from 'components/dialog';
@@ -101,7 +102,8 @@ const Index = () => {
             const response = await api.get('/super-admin/view-all-drivers')
             const data = response.data.result.data
             const driverApplications = data.filter(item => (item.profileStatus === 'PENDING' || item.profileStatus === 'REJECT') && !item.removeApplication)
-            setDrivers(driverApplications)
+            const sortedData = [...driverApplications].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)))
+            setDrivers(sortedData)
             setLoading(false)
         }
         catch (error) {
