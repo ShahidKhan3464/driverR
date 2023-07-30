@@ -27,6 +27,9 @@ const Index = ({ queriesData, setReply }) => {
     const profilePicture =
         queriesData?.driverId ? queriesData.driverId.profilePicture
             : queriesData?.companyId && queriesData.companyId.profilePicture
+    const id =
+        queriesData?.driverId ? queriesData.driverId._id
+            : queriesData?.companyId && queriesData.companyId._id
 
     const closed_pending_Status = (status) => {
         return (
@@ -155,9 +158,9 @@ const Index = ({ queriesData, setReply }) => {
 
                 <StyledChats>
                     <Messages
+                        id={id}
                         messages={messages}
                         profilePicture={profilePicture}
-                        id={queriesData?.companyId?._id}
                     />
                 </StyledChats>
             </div>
