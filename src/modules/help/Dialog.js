@@ -10,11 +10,13 @@ import { useMediaQuery } from 'react-responsive';
 import IconButton from '@mui/material/IconButton';
 import TextFieldInput from 'components/fieldInput';
 import { Formik, Field, ErrorMessage } from "formik";
+import CircularProgress from '@mui/material/CircularProgress';
 import { StyledHeading, FieldErrorMessage } from 'components/globaStyle';
 
 const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) => {
     const api = new ApiClient()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
     const isMobile = useMediaQuery({ maxWidth: 520 })
     const filterFaqs = faqs?.find(faq => faq._id === id)
     const [isFormDirty, setIsFormDirty] = useState(false)
@@ -31,14 +33,17 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
         if (id) {
             data.isActive = true
             try {
+                setLoading(true)
                 const response = await api.put(`/faqs/edit/${id}`, data)
                 if (response.data.status) {
                     SweetAlert('success', 'Success', response.data.message)
                     getData(targetedUser)
                     setOpen(false)
                 }
+                setLoading(false)
             }
             catch (error) {
+                setLoading(true)
                 const tokenExpired = error.response?.data.message
                 if (tokenExpired === 'Token expired, access denied') {
                     localStorage.clear()
@@ -46,12 +51,14 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                     return
                 }
                 setOpen(false)
+                setLoading(false)
                 SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
             }
         }
 
         else {
             try {
+                setLoading(true)
                 const response = await api.post('/faqs/add', data)
                 if (response.data.status) {
                     SweetAlert('success', 'Success', response.data.message)
@@ -61,15 +68,18 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                     SweetAlert('warning', 'Warning!', response.data.message)
                 }
                 setOpen(false)
+                setLoading(false)
             }
             catch (error) {
                 setOpen(false)
+                setLoading(true)
                 const tokenExpired = error.response?.data.message
                 if (tokenExpired === 'Token expired, access denied') {
                     localStorage.clear()
                     navigate("/")
                     return
                 }
+                setLoading(false)
                 SweetAlert('error', 'Error!', 'Something went wrong. Please try again')
             }
         }
@@ -163,6 +173,7 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                                         mbWidth="34%"
                                                         shrink={true}
                                                         autoComplete=""
+                                                        multiline={true}
                                                         label="Description"
                                                         field={{ ...field }}
                                                         onKeyUp={() => setIsFormDirty(true)}
@@ -188,7 +199,16 @@ const Index = ({ id = null, faqs, value, open, getData, dialogType, setOpen }) =
                                             disabled={dialogType === 'edit' && !formik.dirty && !isFormDirty}
                                             className={`save-btn ${dialogType === 'edit' && !formik.dirty && !isFormDirty ? 'disabled-btn' : ''}`}
                                         >
-                                            {dialogType === 'add' ? 'Publish' : dialogType === 'edit' && 'Save'}
+                                            {loading ? (
+                                                <CircularProgress
+                                                    size={22}
+                                                    color='inherit'
+                                                />
+                                            ) : (
+                                                // <span>
+                                                dialogType === 'add' ? 'Publish' : dialogType === 'edit' && 'Save'
+                                                // </span>
+                                            )}
                                         </button>
                                     </div>
                                 </Form>

@@ -339,7 +339,6 @@ export const StyledReplyQuery = styled.div`
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
-    /* min-height: calc(100vh - 185px); */
     min-height: calc(100vh - 265px);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
 
@@ -581,18 +580,22 @@ export const StyledReplyQuery = styled.div`
 `
 
 export const StyledChats = styled.div`
-    padding: 30px 0 60px;
+    padding: 30px 0 50px;
+
+    @media screen and (max-width: 520px) {
+        padding: 20px 0 30px;
+    }  
 
     .messages {
-        gap: 43px;
+        gap: 25px;
         display: flex;
         overflow: auto;
         padding-right: 10px;
         flex-direction: column;
-        /* height: calc(100vh - 145px); */
+        height: calc(100vh - 400px);
 
         @media screen and (max-width: 520px) {
-            gap: 25px;
+            gap: 15px;
         }  
 
         &::-webkit-scrollbar {
@@ -735,6 +738,21 @@ export const StyledDialogContent = styled.div`
                         .MuiInputBase-root {
                             height: 187px;
                             align-items: flex-start;
+
+                            textarea:first-child {
+                                height: 100% !important;
+                                overflow: auto !important;
+
+                                &::-webkit-scrollbar {
+                                    width: 3px;
+                                    height: 3px;
+                                }
+
+                                &::-webkit-scrollbar-thumb {
+                                    border-radius: 10px;
+                                    background: rgb(235 230 230);
+                                }
+                            }
                         }
                     }
                 }
@@ -746,13 +764,14 @@ export const StyledDialogContent = styled.div`
                     justify-content: flex-end;
 
                     button {
+                        width: 76px;
+                        height: 40px;
                         border: none;
                         outline: none;
                         font-size: 13px;
                         cursor: pointer;
                         font-weight: 500;
                         line-height: 18px;
-                        padding: 10px 15px;
                         font-style: normal;
                         border-radius: 6px;
                         background: transparent;
