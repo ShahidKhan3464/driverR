@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import { getPlanType } from 'utils';
 import { StyledReceiptContent } from './style';
 
 const Index = ({ data, componentRef = null }) => {
@@ -23,8 +22,8 @@ const Index = ({ data, componentRef = null }) => {
 
                     <div className='detail'>
                         <p className='key'>Company name<span className='value'>{data?.name}</span></p>
-                        <p className='key'>Transaction id<span className='value'>{data?.transactionId}</span></p>
-                        <p className='key'>Plan type <span className='value'>{getPlanType(data?.planType)}</span></p>
+                        <p className='key'>Transaction id<span className='value'>{data?.transactionId.length > 10 ? `${data?.transactionId.slice(0, 10)}...` : data?.transactionId}</span></p>
+                        <p className='key'>Plan type <span className='value'>{data?.planType?.split(" ")[0]}</span></p>
                         <p className='key'>Date <span className='value'>{moment(data?.date).format('DD MMM YYYY')}</span></p>
                         <p className='key'>Time <span className='value'>{moment(data?.date, 'HH:mm').format('hh:mm A')}</span></p>
                     </div>

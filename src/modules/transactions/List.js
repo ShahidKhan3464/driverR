@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import Dialog from './Dialog';
-import { getPlanType } from 'utils';
 import { saveAs } from 'file-saver';
 import PrintReceipt from './Receipt';
 import Table from '@mui/material/Table';
+import { truncatedString } from 'utils';
 import Paper from '@mui/material/Paper';
 import { pdf } from '@react-pdf/renderer';
 import MenuList from 'components/menuList';
@@ -207,8 +207,8 @@ const Index = ({ data, loading, selected, setSelected }) => {
                                         >
                                             {item.name}
                                         </StyledTableCell>
-                                        <StyledTableCell>{item.transactionId}</StyledTableCell>
-                                        <StyledTableCell>{getPlanType(item.planType)}</StyledTableCell>
+                                        <StyledTableCell>{truncatedString(item.transactionId)}</StyledTableCell>
+                                        <StyledTableCell>{item.planType?.split(" ")[0]}</StyledTableCell>
                                         <StyledTableCell>{moment(item.date).format('DD MMM YYYY')}</StyledTableCell>
                                         <StyledTableCell>{moment(item.date, 'HH:mm').format('hh:mm A')}</StyledTableCell>
                                         <StyledTableCell>€{Math.floor(item.amount / 100)}</StyledTableCell>

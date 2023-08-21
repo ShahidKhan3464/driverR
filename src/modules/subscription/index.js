@@ -82,24 +82,18 @@ const Index = () => {
     const getData = useCallback(async () => {
         try {
             setLoading(true)
-            const products = await api.get('/payment/view-all-products')
-            const addons = await api.get('/payment/view-all-addons')
-            if (products.data.status) {
-                const plans = products.data.result.data.sort((a, b) => a.price - b.price)
-                setPlans(plans)
+            const response = await api.get('/payment/view-all-products')
+            if (response.data.status) {
+                let products = response.data.result.data.filter((e) => e.planType === 'PRODUCT')
+                let addons = response.data.result.data.filter((e) => e.planType === 'ADDON')
+                products = products.sort((a, b) => a.price - b.price)
+                addons = addons.sort((a, b) => a.price - b.price)
+                setPlans(products)
+                setAddOns(addons)
                 setLoading(false)
             }
             else {
-                SweetAlert('warning', 'Warning!', products.data.message)
-                setLoading(false)
-            }
-            if (addons.data.status) {
-                setAddOns(addons.data.result.data)
-                setLoading(false)
-                return
-            }
-            else {
-                SweetAlert('warning', 'Warning!', addons.data.message)
+                SweetAlert('warning', 'Warning!', response.data.message)
                 setLoading(false)
             }
         }

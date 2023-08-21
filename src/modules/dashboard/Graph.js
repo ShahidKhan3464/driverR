@@ -32,7 +32,7 @@ const Index = () => {
     const [graphData, setGraphData] = useState()
     const [loading, setLoading] = useState(true)
 
-    const generateGraphData = (subscriptions, value) => {
+    const generateGraphData = (subscriptions, value = null) => {
         const limit = value ? value : 6
         const plans = Array.from(new Set(subscriptions.map((subscription) => subscription.planType)))
 
@@ -54,15 +54,25 @@ const Index = () => {
             }
         }
 
-        const earliestSubscriptionDate = new Date(Math.min(...subscriptions.map((subscription) => subscription.date)))
-        const currentMonth = earliestSubscriptionDate.getMonth()
-        const currentYear = earliestSubscriptionDate.getFullYear()
+        const currentDate = new Date()
+        const startDate = new Date(currentDate)
+        startDate.setMonth(currentDate.getMonth() - limit + 1)
+
+        // const earliestSubscriptionDate = new Date(Math.min(...subscriptions.map((subscription) => subscription.date)))
+        // const currentMonth = earliestSubscriptionDate.getMonth()
+        // const currentYear = earliestSubscriptionDate.getFullYear()
 
         const monthLabels = []
 
         for (let i = 0; i < limit; i++) {
-            const monthIndex = (currentMonth + i) % 12
-            const year = currentYear + Math.floor((currentMonth + i) / 12)
+            // const monthIndex = (currentMonth + i) % 12
+            // const year = currentYear + Math.floor((currentMonth + i) / 12)
+
+            // const monthName = new Date(year, monthIndex).toLocaleString('default', { month: 'short' })
+            // monthLabels.push(monthName)
+
+            const monthIndex = (startDate.getMonth() + i) % 12
+            const year = startDate.getFullYear() + Math.floor((startDate.getMonth() + i) / 12)
 
             const monthName = new Date(year, monthIndex).toLocaleString('default', { month: 'short' })
             monthLabels.push(monthName)
@@ -157,10 +167,11 @@ const Index = () => {
     const getData = useCallback(async () => {
         try {
             const response = await api.get('/payment/transactions')
-            const subscriptions = response.data.result.data.data?.map(item => {
+            const subscriptions = response.data.result.data.map(item => {
                 return {
-                    date: new Date(item.period_start * 1000),
-                    planType: getPlanType(item.lines.data[0].description),
+                    date: new Date(item.stripeSubscriptionDetails.created * 1000),
+                    planType: item?.planName
+                    // planType: getPlanType(item.lines.data[0].description),
                 }
             })
             if (subscriptions) {

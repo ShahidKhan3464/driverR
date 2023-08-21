@@ -45,7 +45,7 @@ const Index = () => {
     const [filter, setFilter] = useState({ subscription: "" })
 
     const filteredTransactions = transactions.filter((item) => {
-        const subscriptionMatch = !filter.subscription || getPlanType(item.planType).toLowerCase() === filter.subscription
+        const subscriptionMatch = !filter.subscription || item.planType?.split(" ")[0].toLowerCase() === filter.subscription
         const searchMatch = !searchQuery || item.name.toLowerCase().includes(searchQuery.toLowerCase())
 
         if (selectDate) {
@@ -62,13 +62,13 @@ const Index = () => {
         try {
             setLoading(true)
             const response = await api.get('/payment/transactions')
-            const manipulatedData = response.data.result.data.data.map(item => {
+            const manipulatedData = response.data.result.data.map(item => {
                 return {
-                    name: item.customer_name,
-                    transactionId: item.number,
-                    planType: item.lines.data[0].description,
-                    date: new Date(item.period_start * 1000),
-                    amount: item.total
+                    name: item?.companyId?.name,
+                    transactionId: item?.stripeSubscrpitionId,
+                    planType: item?.planName,
+                    date: new Date(item?.stripeSubscriptionDetails?.created * 1000),
+                    amount: item?.stripeSubscriptionDetails?.plan?.amount
                 }
             })
             // const sortedData = [...manipulatedData].sort((a, b) => moment(b.date).diff(moment(a.date)))
@@ -97,7 +97,7 @@ const Index = () => {
             const xlsxData = selected.map(({ name, transactionId, planType, date, amount }) => ({
                 'Company name': name,
                 'Transaction id': transactionId,
-                'Plan type': getPlanType(planType),
+                'Plan type': planType.split(" ")[0],
                 'Date': moment(date).format('DD MMM YYYY'),
                 'Time': moment(date, 'HH:mm').format('hh:mm A'),
                 'Amount': `€${Math.floor(amount / 100)}`

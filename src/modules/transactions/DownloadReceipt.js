@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import { getPlanType } from 'utils';
 import { Document, Page, StyleSheet, View, Text, Font } from '@react-pdf/renderer';
 import { grey600, grey800, grey900, infoLink, primaryBlue } from 'components/globaStyle';
 
@@ -147,11 +146,11 @@ const Index = ({ data }) => {
                             </View>
                             <View style={styles.body.trscHistory.detail.layout}>
                                 <Text style={styles.body.trscHistory.detail.layout.key}>Transaction id</Text>
-                                <Text style={styles.body.trscHistory.detail.layout.value}>{data.transactionId}</Text>
+                                <Text style={styles.body.trscHistory.detail.layout.value}>{data.transactionId.length > 10 ? `${data.transactionId.slice(0, 10)}...` : data.transactionId}</Text>
                             </View>
                             <View style={styles.body.trscHistory.detail.layout}>
                                 <Text style={styles.body.trscHistory.detail.layout.key}>Plan type</Text>
-                                <Text style={styles.body.trscHistory.detail.layout.value}>{getPlanType(data?.planType)}</Text>
+                                <Text style={styles.body.trscHistory.detail.layout.value}>{data?.planType?.split(" ")[0]}</Text>
                             </View>
                             <View style={styles.body.trscHistory.detail.layout}>
                                 <Text style={styles.body.trscHistory.detail.layout.key}>Date</Text>

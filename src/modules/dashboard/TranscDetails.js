@@ -22,12 +22,12 @@ const Index = () => {
         try {
             setLoading(true)
             const response = await api.get('/payment/transactions')
-            const manipulatedData = response.data.result.data.data.map(item => {
+            const manipulatedData = response.data.result.data.map(item => {
                 return {
-                    name: item.customer_name,
-                    transactionId: item.number,
-                    date: new Date(item.period_start * 1000),
-                    amount: item.total
+                    name: item.companyId.name,
+                    transactionId: item.stripeSubscrpitionId,
+                    date: new Date(item.stripeSubscriptionDetails.created * 1000),
+                    amount: item.stripeSubscriptionDetails.plan.amount
                 }
             })
             setTransactions(manipulatedData)

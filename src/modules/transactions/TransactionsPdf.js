@@ -105,10 +105,10 @@ const Index = ({ data }) => {
                                         <Text>{item.name}</Text>
                                     </View>
                                     <View style={styles.table.tbody.tr.td}>
-                                        <Text>{item.transactionId}</Text>
+                                        <Text>{item.transactionId.length > 10 ? `${item.transactionId.slice(0, 10)}...` : item.transactionId}</Text>
                                     </View>
                                     <View style={styles.table.tbody.tr.td}>
-                                        <Text>{getPlanType(item.planType)}</Text>
+                                        <Text>{item?.planType?.split(" ")[0]}</Text>
                                     </View>
                                     <View style={styles.table.tbody.tr.td}>
                                         <Text>{moment(item.date).format('DD MMM YYYY')}</Text>
