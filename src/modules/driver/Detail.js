@@ -8,8 +8,8 @@ import Breadcrumbs from 'components/breadCrumbs';
 import IconButton from '@mui/material/IconButton';
 import RejectCauseDialog from 'components/rejectDialog';
 import CircularProgress from '@mui/material/CircularProgress';
-import { StyledHeading, StyledTableHeading } from 'components/globaStyle';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { StyledHeading, StyledTableHeading, grey400 } from 'components/globaStyle';
 import { ContentContainer, StyledDetailsContent, StyledAttachment } from './style';
 const { Content } = Layout;
 
@@ -235,7 +235,18 @@ const Index = () => {
                                             </div>
                                             <div className='profile_content_text_box_pair'>
                                                 <h3>Preferred location</h3>
-                                                <p>{detail?.preferredLocation}</p>
+                                                <div className='profile_content_text_box_pair_preferredLocations'>
+                                                    {detail?.preferredLocations && (
+                                                        <p>{detail.preferredLocations.join(", ")}</p>
+                                                    )}
+                                                    {/* {detail?.preferredLocations?.map((location, index) => {
+                                                        return (
+                                                            <>
+                                                                <p key={index}>{location}</p> {","}
+                                                            </>
+                                                        )
+                                                    })} */}
+                                                </div>
                                             </div>
                                         </div>
 
@@ -244,11 +255,15 @@ const Index = () => {
                                                 <h3>Email</h3>
                                                 <p>{detail?.email}</p>
                                             </div>
-                                            <div className='profile_content_text_box_pair'>
-                                                <h3>Driving experience</h3>
-                                                {detail && (
-                                                    <p>{detail?.drivingExperience} years</p>
-                                                )}
+                                            <div className='profile_content_text_box_pair licenseWithExp'>
+                                                {detail?.licenceType?.map(item => {
+                                                    return (
+                                                        <div>
+                                                            <h3>Driving license {item.licenceType.split(" ")[1]}</h3>
+                                                            <p><span style={{ color: grey400 }}>Experience:</span> {item.experience} Years</p>
+                                                        </div>
+                                                    )
+                                                })}
                                             </div>
                                         </div>
 

@@ -22,6 +22,7 @@ export const StyledTextField = styled(TextField)((props) => ({
         color: props.error ? '#B3261E' : primaryBlue,
     },
     '& .MuiOutlinedInput-input': {
+        height: '100%',
         fontWeight: 400,
         fontSize: '16px',
         color: '#49454F',
@@ -35,12 +36,14 @@ export const StyledTextField = styled(TextField)((props) => ({
     },
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
+            height: '100%',
             border: '1px solid #79747E',
         },
         '&:hover fieldset': {
             border: props.error ? '2px solid #B3261E' : `2px solid ${primaryBlue}`,
         },
         '& fieldset legend': {
+            border: 'none',
             width: props.width,
             '@media screen and (max-width: 475px)': {
                 width: props.mbWidth,

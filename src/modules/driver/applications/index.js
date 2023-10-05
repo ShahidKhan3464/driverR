@@ -49,14 +49,28 @@ const gender = [
     { value: 'female', text: 'Female' },
 ]
 
-const experience = [
-    { value: '1', text: '0-1 year' },
-    { value: '2', text: '1-2 years' },
-    { value: '3', text: '2-3 years' },
-    { value: '4', text: '3-4 years' },
-    { value: '5', text: '4-5 years' },
-    { value: '+5', text: '+5 years' },
+const equipmentType = [
+    { value: 'box', text: 'Box' },
+    { value: 'bulk', text: 'Bulk' },
+    { value: 'frigo', text: 'Frigo' },
+    { value: 'chassie', text: 'Chassie' },
+    { value: 'oversized', text: 'Oversized' },
+    { value: 'tautliner', text: 'Tautliner' },
+    { value: 'jumbo (40 Ton)', text: 'Jumbo (40 Ton)' },
+    { value: 'car transporter', text: 'Car transporter' },
+    { value: 'tautliner & box (12 ton)', text: 'Tautliner & Box (12 Ton)' },
+    { value: 'tautliner & box (3.5 ton)', text: 'Tautliner & Box (3.5 Ton)' },
+    { value: 'tautliner & box (7.5 ton)', text: 'Tautliner & Box (7.5 Ton)' },
 ]
+
+// const experience = [
+//     { value: '1', text: '0-1 year' },
+//     { value: '2', text: '1-2 years' },
+//     { value: '3', text: '2-3 years' },
+//     { value: '4', text: '3-4 years' },
+//     { value: '5', text: '4-5 years' },
+//     { value: '+5', text: '+5 years' },
+// ]
 
 const Index = () => {
     const api = new ApiClient()
@@ -68,30 +82,31 @@ const Index = () => {
     const [dialogOpen, setDialogOpen] = useState(false)
     const [filter, setFilter] = useState({
         gender: '',
-        experience: '',
-        employmentStatus: '',
+        equipmentType: '',
         preferredLocation: '',
     })
 
     const filteredDrivers = drivers.filter((item) => {
-        let experienceMatch = true
+        // let experienceMatch = true
         const fullName = `${item.firstName} ${item.lastName}`
-        const locationMatch = !filter.preferredLocation || item.preferredLocation.toLowerCase() === filter.preferredLocation
-        const employmentMatch = !filter.employmentStatus || item.employmentStatus.toLowerCase() === filter.employmentStatus
+        // const locationMatch = !filter.preferredLocation || item.preferredLocation.toLowerCase() === filter.preferredLocation
+        // const employmentMatch = !filter.employmentStatus || item.employmentStatus.toLowerCase() === filter.employmentStatus
+        const locationMatch = !filter.preferredLocation || item.preferredLocations.map(element => element.toLowerCase()).includes(filter.preferredLocation)
+        const equipmentMatch = !filter.equipmentType || item.equipmentType.map(element => element.toLowerCase()).includes(filter.equipmentType)
         const genderMatch = !filter.gender || item.gender.toLowerCase() === filter.gender
 
-        if (filter.experience === '+5') {
-            experienceMatch = item.drivingExperience > 5
-        }
+        // if (filter.experience === '+5') {
+        //     experienceMatch = item.drivingExperience > 5
+        // }
 
-        else {
-            experienceMatch = !filter.experience || item.drivingExperience === filter.experience
-        }
+        // else {
+        //     experienceMatch = !filter.experience || item.drivingExperience === filter.experience
+        // }
 
         const searchMatch = !searchQuery
             || fullName.toLowerCase().includes(searchQuery.toLowerCase())
             || item.email.toLowerCase().includes(searchQuery.toLowerCase())
-        return locationMatch && employmentMatch && genderMatch && experienceMatch && searchMatch
+        return locationMatch && equipmentMatch && genderMatch && searchMatch
     })
 
     const handleSearchQueryChange = (value) => setSearchQuery(value.trim())
@@ -264,9 +279,9 @@ const Index = () => {
                                 handleFilterChange={handleFilterChange}
                             />
                             <Dropdown
-                                name="experience"
-                                options={experience}
-                                defaultValue="Experience"
+                                name="equipmentType"
+                                options={equipmentType}
+                                defaultValue="Equipment type"
                                 handleFilterChange={handleFilterChange}
                             />
                         </div>

@@ -198,10 +198,34 @@ export const StyledDetailsContent = styled.div`
                         gap: 12px;
                     }
 
+                    .licenseWithExp {
+                        gap: 30px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        flex-direction: row;
+
+                        @media screen and (max-width: 520px) {
+                            gap: 15px;
+                        }
+
+                        >div {
+                            gap: 4px;
+                            display: flex;
+                            flex-direction: column;
+                        }
+                    }
+
                     &_pair {
                         gap: 4px;
                         display: flex;
                         flex-direction: column;
+
+                        &_preferredLocations {
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                        }
     
                         h3, p {
                             margin: 0;

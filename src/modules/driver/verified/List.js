@@ -200,7 +200,7 @@ const Index = ({ data, loading, handleApplication, handleDriverStatus }) => {
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell>Email</StyledTableCell>
                             <StyledTableCell>Gender</StyledTableCell>
-                            <StyledTableCell>Experience</StyledTableCell>
+                            <StyledTableCell>Equipment type</StyledTableCell>
                             <StyledTableCell>Status</StyledTableCell>
                             <StyledTableCell>Preferred location</StyledTableCell>
                             <StyledTableCell>Actions</StyledTableCell>
@@ -256,7 +256,12 @@ const Index = ({ data, loading, handleApplication, handleDriverStatus }) => {
                                         </StyledTableCell>
                                         <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.gender}</StyledTableCell>
-                                        <StyledTableCell>{item.drivingExperience}</StyledTableCell>
+                                        <StyledTableCell>
+                                            {item.equipmentType.length > 4
+                                                ? item.equipmentType.slice(0, 4).join(', ') + ',...'
+                                                : item.equipmentType.join(", ")
+                                            }
+                                        </StyledTableCell>
                                         <StyledTableCell>
                                             <StyledStatus
                                                 width={item.isActive ? '65px' : '82px'}
@@ -266,7 +271,12 @@ const Index = ({ data, loading, handleApplication, handleDriverStatus }) => {
                                                 {item.isActive ? 'Active' : 'In-active'}
                                             </StyledStatus>
                                         </StyledTableCell>
-                                        <StyledTableCell>{item.preferredLocation}</StyledTableCell>
+                                        <StyledTableCell>
+                                            {item.preferredLocations.length > 4
+                                                ? item.preferredLocations.slice(0, 4).join(', ') + ',...'
+                                                : item.preferredLocations.join(", ")
+                                            }
+                                        </StyledTableCell>
                                         <StyledTableCell align='center'>
                                             <MenuList
                                                 id={item._id}

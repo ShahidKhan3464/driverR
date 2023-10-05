@@ -248,8 +248,18 @@ const Index = ({ data, loading, handleJobDelete, handleJobStatus }) => {
                                         </div>
                                     </StyledTableCell>
                                     <StyledTableCell>{item.title}</StyledTableCell>
-                                    <StyledTableCell>{item.equipmentType}</StyledTableCell>
-                                    <StyledTableCell>{item.routeType}</StyledTableCell>
+                                    <StyledTableCell>
+                                        {item.equipmentType.length > 4
+                                            ? item.equipmentType.slice(0, 4).join(', ') + ',...'
+                                            : item.equipmentType.join(", ")
+                                        }
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {item.routeType.length > 4
+                                            ? item.routeType.slice(0, 4).join(', ') + ',...'
+                                            : item.routeType.join(", ")
+                                        }
+                                    </StyledTableCell>
                                     <StyledTableCell>
                                         <StyledStatus
                                             width={item.isActive ? '65px' : '82px'}

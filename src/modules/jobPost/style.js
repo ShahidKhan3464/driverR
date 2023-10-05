@@ -76,10 +76,10 @@ export const StyledDetailsContent = styled.div`
         }
 
         &_content {
-            gap: 130px;
+            gap: 40px;
             display: flex;
             position: relative;
-            align-items: center;
+            /* align-items: center; */
             
             @media screen and (max-width: 1080px) {
                 gap: 50px;
@@ -93,10 +93,10 @@ export const StyledDetailsContent = styled.div`
 
             &_row {
                 &_title {
-                    margin-bottom: 35px;
+                    margin-bottom: 24px;
 
                     @media screen and (max-width: 520px) {
-                        margin-bottom: 15px;
+                        margin-bottom: 12px;
                     }
 
                     h2 {
@@ -106,6 +106,7 @@ export const StyledDetailsContent = styled.div`
                         line-height: 25px;
                         color: ${grey800};
                         font-style: normal;
+                        padding-bottom: 8px;
                         font-family: SF Pro Text;
                         letter-spacing: -0.0045em;
 
@@ -113,16 +114,25 @@ export const StyledDetailsContent = styled.div`
                             font-size: 18px;
                         }
                     }
+
+                    .jobId {
+                        color: #4B5563;
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 16px; 
+                        font-style: normal;
+                        font-family: SF Pro Text;
+                    }
                 }
 
                 &_text {
-                    gap: 56px;
+                    gap: 30px;
                     display: flex;
                     flex-wrap: wrap;
 
-                    @media screen and (max-width: 768px) {
+                    /* @media screen and (max-width: 768px) {
                         gap: 30px;
-                    }
+                    } */
 
                     @media screen and (max-width: 520px) {
                         gap: 15px;
@@ -137,10 +147,34 @@ export const StyledDetailsContent = styled.div`
                             gap: 15px;
                         }
 
+                        .licenseWithExp {
+                            gap: 30px;
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            flex-direction: row;
+
+                            @media screen and (max-width: 520px) {
+                                gap: 15px;
+                            }
+
+                            >div {
+                                gap: 4px;
+                                display: flex;
+                                flex-direction: column;
+                            }
+                        }
+
                         &_pair {
                             gap: 4px;
                             display: flex;
                             flex-direction: column;
+
+                            &_equipmentType, &_routeType {
+                                display: flex;
+                                flex-wrap: wrap;
+                                align-items: center;
+                            }
         
                             h3, p {
                                 margin: 0;
@@ -167,7 +201,7 @@ export const StyledDetailsContent = styled.div`
                 }
 
                 &_company {
-                    gap: 50px;
+                    gap: 40px;
                     display: grid;
                     grid-template-columns: 1fr 1fr;
                     
@@ -207,7 +241,7 @@ export const StyledDetailsContent = styled.div`
                         }
     
                         span {
-                            font-size: 16px;
+                            font-size: 15px;
                             font-weight: 400;
                             line-height: 29px;
                             font-style: normal;

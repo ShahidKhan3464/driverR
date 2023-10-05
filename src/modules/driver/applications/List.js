@@ -212,7 +212,7 @@ const Index = ({ data, loading, selected, setSelected, handleApplication, handle
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell>Email</StyledTableCell>
                             <StyledTableCell>Gender</StyledTableCell>
-                            <StyledTableCell>Experience</StyledTableCell>
+                            <StyledTableCell>Equipment type</StyledTableCell>
                             <StyledTableCell>Preferred location</StyledTableCell>
                             <StyledTableCell>Status</StyledTableCell>
                             <StyledTableCell>Actions</StyledTableCell>
@@ -288,8 +288,19 @@ const Index = ({ data, loading, selected, setSelected, handleApplication, handle
                                         </StyledTableCell>
                                         <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.gender}</StyledTableCell>
-                                        <StyledTableCell>{item.drivingExperience}</StyledTableCell>
-                                        <StyledTableCell>{item.preferredLocation}</StyledTableCell>
+                                        <StyledTableCell>
+                                            {/* {item.drivingExperience} */}
+                                            {item.equipmentType.length > 4
+                                                ? item.equipmentType.slice(0, 4).join(', ') + ',...'
+                                                : item.equipmentType.join(", ")
+                                            }
+                                        </StyledTableCell>
+                                        <StyledTableCell>
+                                            {item.preferredLocations.length > 4
+                                                ? item.preferredLocations.slice(0, 4).join(', ') + ',...'
+                                                : item.preferredLocations.join(", ")
+                                            }
+                                        </StyledTableCell>
                                         <StyledTableCell>
                                             <StyledStatus
                                                 width={item.profileStatus === 'REJECT'

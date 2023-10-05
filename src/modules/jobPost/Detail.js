@@ -7,7 +7,7 @@ import Breadcrumbs from 'components/breadCrumbs';
 import { Link, useParams } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ContentContainer, StyledDetailsContent } from './style';
-import { StyledTableHeading, StyledStatus, grey500, grey800 } from 'components/globaStyle';
+import { StyledTableHeading, StyledStatus, grey500, grey800, grey400 } from 'components/globaStyle';
 const { Content } = Layout;
 
 const Index = () => {
@@ -76,40 +76,54 @@ const Index = () => {
                                     <div className='details_content_row'>
                                         <div className='details_content_row_title'>
                                             <h2>{detail?.title}</h2>
+                                            <span className='jobId'>Job id: {detail?.jobId}</span>
                                         </div>
 
                                         <div className='details_content_row_text'>
                                             <div className='details_content_row_text_box'>
+                                                <div className='details_content_row_text_box_pair licenseWithExp'>
+                                                    {detail?.licenceCategory?.map(item => {
+                                                        return (
+                                                            <div>
+                                                                <h3>Driving license {item.licenceType.split(" ")[1]}</h3>
+                                                                <p><span style={{ color: grey400 }}>Experience:</span> {item.drivingExperience} Years</p>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                            <div className='details_content_row_text_box'>
                                                 <div className='details_content_row_text_box_pair'>
                                                     <h3>Equipment type</h3>
-                                                    <p>{detail?.equipmentType}</p>
-                                                </div>
-                                                <div className='details_content_row_text_box_pair'>
-                                                    <h3>Medical insurance</h3>
-                                                    {detail && (
-                                                        <p>{detail.medicalInsuranceRequired ? 'Yes' : 'No'}</p>
-                                                    )}
+                                                    <div className='details_content_row_text_box_pair_equipmentType'>
+                                                        {detail?.equipmentType && (
+                                                            <p>{detail.equipmentType.join(", ")}</p>
+                                                        )}
+                                                        {/* {detail?.equipmentType?.map((item, index) => {
+                                                            return (
+                                                                <>
+                                                                    <p key={index}>{item}</p> {","}
+                                                                </>
+                                                            )
+                                                        })} */}
+                                                    </div>
                                                 </div>
                                             </div>
-
                                             <div className='details_content_row_text_box'>
-                                                <div className='details_content_row_text_box_pair'>
-                                                    <h3>Required experience</h3>
-                                                    {detail && (
-                                                        <p>{detail.requiredExperience} years</p>
-                                                    )}
-                                                </div>
                                                 <div className='details_content_row_text_box_pair'>
                                                     <h3>Route type</h3>
-                                                    <p>{detail?.routeType}</p>
-                                                </div>
-                                            </div>
-                                            <div className='details_content_row_text_box'>
-                                                <div className='details_content_row_text_box_pair'>
-                                                    <h3>License required</h3>
-                                                    {detail && (
-                                                        <p>{detail.licenseRequired ? 'Yes' : 'No'}</p>
-                                                    )}
+                                                    <div className='details_content_row_text_box_pair_routeType'>
+                                                        {detail?.routeType && (
+                                                            <p>{detail.routeType.join(", ")}</p>
+                                                        )}
+                                                    </div>
+                                                    {/* {detail?.routeType?.map((item, index) => {
+                                                        return (
+                                                            <>
+                                                                <p key={index}>{item}</p> {","}
+                                                            </>
+                                                        )
+                                                    })} */}
                                                 </div>
                                             </div>
                                         </div>

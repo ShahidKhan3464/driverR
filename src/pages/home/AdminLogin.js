@@ -27,14 +27,15 @@ const Index = () => {
                 type='button'
                 onClick={() => formik.setFieldValue(name, "")}
                 style={{
-                    top: '16px',
+                    top: '55%',
                     padding: '0',
                     right: '16px',
                     border: 'none',
                     outline: 'none',
                     cursor: 'pointer',
                     position: 'absolute',
-                    background: 'transparent'
+                    background: 'transparent',
+                    transform: 'translate(-50%, -50%)'
                 }}
             >
                 <img src='images/cross-icon.svg' alt='cross-icon' />
@@ -127,14 +128,15 @@ const Index = () => {
                                                         type='button'
                                                         onClick={() => setShowPassword(!showPassword)}
                                                         style={{
-                                                            top: '16px',
+                                                            top: '55%',
                                                             padding: '0',
                                                             right: '16px',
                                                             border: 'none',
                                                             outline: 'none',
                                                             cursor: 'pointer',
                                                             position: 'absolute',
-                                                            background: 'transparent'
+                                                            background: 'transparent',
+                                                            transform: 'translate(-50%, -50%)'
                                                         }}
                                                     >
                                                         <img src='images/eye-icon.svg' alt='eye-icon' />
