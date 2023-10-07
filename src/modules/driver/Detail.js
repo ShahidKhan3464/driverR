@@ -81,6 +81,18 @@ const Index = () => {
         }
     }
 
+    const getLicenceType = (licenceType) => {
+        const regex = /Category (.+)/;
+        const match = licenceType.match(regex)
+
+        let result = ""
+        if (match && match[1]) {
+            result = match[1]
+        }
+
+        return result
+    }
+
     const rejectContent = () => {
         return (
             <React.Fragment>
@@ -239,13 +251,6 @@ const Index = () => {
                                                     {detail?.preferredLocations && (
                                                         <p>{detail.preferredLocations.join(", ")}</p>
                                                     )}
-                                                    {/* {detail?.preferredLocations?.map((location, index) => {
-                                                        return (
-                                                            <>
-                                                                <p key={index}>{location}</p> {","}
-                                                            </>
-                                                        )
-                                                    })} */}
                                                 </div>
                                             </div>
                                         </div>
@@ -259,7 +264,8 @@ const Index = () => {
                                                 {detail?.licenceType?.map(item => {
                                                     return (
                                                         <div>
-                                                            <h3>Driving license {item.licenceType.split(" ")[1]}</h3>
+                                                            {/* <h3>Driving license {item.licenceType.split(" ")[1]}</h3> */}
+                                                            <h3>Driving license {getLicenceType(item.licenceType)}</h3>
                                                             <p><span style={{ color: grey400 }}>Experience:</span> {item.experience} Years</p>
                                                         </div>
                                                     )

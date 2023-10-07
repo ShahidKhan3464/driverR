@@ -255,10 +255,11 @@ const Index = ({ data, loading, handleJobDelete, handleJobStatus }) => {
                                         }
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {item.routeType.length > 4
+                                        {/* {item.routeType.length > 4
                                             ? item.routeType.slice(0, 4).join(', ') + ',...'
                                             : item.routeType.join(", ")
-                                        }
+                                        } */}
+                                        {item.routeType}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <StyledStatus

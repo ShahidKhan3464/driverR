@@ -20,12 +20,12 @@ const equipmentType = [
     { value: 'box', text: 'Box' },
     { value: 'bulk', text: 'Bulk' },
     { value: 'frigo', text: 'Frigo' },
-    { value: 'chassie', text: 'Chassie' },
     { value: 'oversized', text: 'Oversized' },
     { value: 'tautliner', text: 'Tautliner' },
     { value: 'jumbo (40 Ton)', text: 'Jumbo (40 Ton)' },
     { value: 'car transporter', text: 'Car transporter' },
     { value: 'tautliner & box (12 ton)', text: 'Tautliner & Box (12 Ton)' },
+    { value: 'chassie for the container', text: 'Chassie for the container' },
     { value: 'tautliner & box (3.5 ton)', text: 'Tautliner & Box (3.5 Ton)' },
     { value: 'tautliner & box (7.5 ton)', text: 'Tautliner & Box (7.5 Ton)' },
 ]
@@ -82,9 +82,9 @@ const Index = () => {
 
     const filteredJobs = jobs.filter((item) => {
         const statusMatch = filter.status === '' || item.isActive === filter.status
-        // const routeMatch = !filter.routeType || item.routeType.toLowerCase() === filter.routeType
+        const routeMatch = !filter.routeType || item.routeType.toLowerCase() === filter.routeType
         // const equipmentMatch = !filter.equipmentType || item.equipmentType.toLowerCase() === filter.equipmentType
-        const routeMatch = !filter.routeType || item.routeType.map(element => element.toLowerCase()).includes(filter.routeType)
+        // const routeMatch = !filter.routeType || item.routeType.map(element => element.toLowerCase()).includes(filter.routeType)
         const equipmentMatch = !filter.equipmentType || item.equipmentType.map(element => element.toLowerCase()).includes(filter.equipmentType)
         const searchMatch = !searchQuery
             || item.title.toLowerCase().includes(searchQuery.toLowerCase())

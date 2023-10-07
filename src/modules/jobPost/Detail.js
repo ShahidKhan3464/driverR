@@ -22,6 +22,18 @@ const Index = () => {
         <span className='text'>Job details</span>
     ]
 
+    const getLicenceType = (licenceType) => {
+        const regex = /Category (.+)/;
+        const match = licenceType.match(regex)
+
+        let result = ""
+        if (match && match[1]) {
+            result = match[1]
+        }
+
+        return result
+    }
+
     const getJobDetail = useCallback(async () => {
         try {
             setLoading(true)
@@ -85,7 +97,7 @@ const Index = () => {
                                                     {detail?.licenceCategory?.map(item => {
                                                         return (
                                                             <div>
-                                                                <h3>Driving license {item.licenceType.split(" ")[1]}</h3>
+                                                                <h3>Driving license {getLicenceType(item.licenceType)}</h3>
                                                                 <p><span style={{ color: grey400 }}>Experience:</span> {item.drivingExperience} Years</p>
                                                             </div>
                                                         )
@@ -114,7 +126,7 @@ const Index = () => {
                                                     <h3>Route type</h3>
                                                     <div className='details_content_row_text_box_pair_routeType'>
                                                         {detail?.routeType && (
-                                                            <p>{detail.routeType.join(", ")}</p>
+                                                            <p>{detail.routeType}</p>
                                                         )}
                                                     </div>
                                                     {/* {detail?.routeType?.map((item, index) => {
