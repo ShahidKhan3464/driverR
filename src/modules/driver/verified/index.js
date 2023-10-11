@@ -99,7 +99,7 @@ const Index = () => {
             const response = await api.put('/super-admin/manage-driver-profile', params)
             if (response.data.status) {
                 if (profileStatus === 'BLOCK') {
-                    SweetAlert('success', 'Blocked', 'This application has been blocked Successfully')
+                    SweetAlert('success', 'Blocked', 'This driver has been blocked Successfully')
                 }
             }
             getData()

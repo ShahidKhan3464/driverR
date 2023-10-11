@@ -7,7 +7,7 @@ import Breadcrumbs from 'components/breadCrumbs';
 import { Link, useParams } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ContentContainer, StyledDetailsContent } from './style';
-import { StyledTableHeading, StyledStatus, grey500, grey800, grey400 } from 'components/globaStyle';
+import { StyledTableHeading, StyledStatus, grey500, grey800 } from 'components/globaStyle';
 const { Content } = Layout;
 
 const Index = () => {
@@ -98,7 +98,7 @@ const Index = () => {
                                                         return (
                                                             <div>
                                                                 <h3>Driving license {getLicenceType(item.licenceType)}</h3>
-                                                                <p><span style={{ color: grey400 }}>Experience:</span> {item.drivingExperience} Years</p>
+                                                                <p><span>Experience:</span> {item.drivingExperience} Years</p>
                                                             </div>
                                                         )
                                                     })}
