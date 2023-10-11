@@ -14,10 +14,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { StyledTableCell, StyledTableRow, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
 
 const options = [
-    // { icon: '/images/view-icon.svg', text: 'View' },
-    // { icon: '/images/accept-icon.svg', text: 'Approve' },
-    // { icon: '/images/reject-icon.svg', text: 'Reject' },
-    // { icon: '/images/block-icon.svg', text: 'Block' },
 ]
 
 const Index = ({ data, loading, handleApplication }) => {
@@ -66,21 +62,6 @@ const Index = ({ data, loading, handleApplication }) => {
 
     return (
         <React.Fragment>
-            {/* {dialogOpen && (
-                dialogType === 'reject' || dialogType === 'block')
-                ? (
-                    <Dialog
-                        open={dialogOpen}
-                        setOpen={setDialogOpen}
-                        content={dialogType === 'reject' ? rejectContent() : dialogType === 'block' && blockContent()}
-                    />
-                ) : dialogType === 'cause' && (
-                    <RejectDialog
-                        open={dialogOpen}
-                        setOpen={setDialogOpen}
-                        handleApplication={() => handleApplication(id, 'reject')}
-                    />
-                )} */}
             <TableContainer
                 component={Paper}
                 sx={{ borderRadius: '12px', border: '1px solid #E7E7E7', boxShadow: 'none' }}

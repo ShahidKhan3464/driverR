@@ -142,7 +142,7 @@ export const ContentContainer = styled.div`
             .add-btn {
                 button {
                     border: none;
-                    outline; none;
+                    outline: none;
                     color: #F9FAFB;
                     font-size: 13px;
                     cursor: pointer;

@@ -7,7 +7,6 @@ import Radio from '@mui/material/Radio';
 import MenuList from 'components/menuList';
 import TableRow from '@mui/material/TableRow';
 import Pagination from 'components/pagination';
-import SweetAlert from 'components/sweetAlert';
 import { useNavigate } from 'react-router-dom';
 import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
@@ -202,7 +201,6 @@ const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell>Email</StyledTableCell>
                             <StyledTableCell>No of job posts</StyledTableCell>
-                            {/* <StyledTableCell>Subscription plan</StyledTableCell> */}
                             <StyledTableCell>Status</StyledTableCell>
                             <StyledTableCell>Actions</StyledTableCell>
                         </TableRow>
@@ -257,7 +255,6 @@ const Index = ({ data, loading, handleApplication, handleCompanyStatus }) => {
                                         </StyledTableCell>
                                         <StyledTableCell style={{ textTransform: 'lowercase' }}>{truncatedString(item.email)}</StyledTableCell>
                                         <StyledTableCell>{item.numJobs}</StyledTableCell>
-                                        {/* <StyledTableCell>{item.subs}</StyledTableCell> */}
                                         <StyledTableCell>
                                             <StyledStatus
                                                 width={item.isActive ? '65px' : '82px'}

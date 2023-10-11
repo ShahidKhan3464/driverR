@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryBlue, grey500, grey800, grey900 } from "components/globaStyle";
+import { primaryBlue, grey500, grey900 } from "components/globaStyle";
 
 export const ContentContainer = styled.div`
     gap: 20px;
@@ -219,19 +219,6 @@ export const StyledNotifications = styled.div`
         &_item {
             padding-bottom: 8px;
             border-bottom:  0.2px solid #B5B4B4;
-
-            // &:last-child {
-            //     border: none;
-            //     padding-top: 8px;
-            //     padding-bottom: 0;
-
-            //     p {
-            //         span:last-child {
-            //             font-weight: 500;
-            //             color: ${grey500};
-            //         }
-            //     }
-            // }
 
             &_text {
                 h3 {

@@ -111,13 +111,6 @@ const Index = () => {
                                                         {detail?.equipmentType && (
                                                             <p>{detail.equipmentType.join(", ")}</p>
                                                         )}
-                                                        {/* {detail?.equipmentType?.map((item, index) => {
-                                                            return (
-                                                                <>
-                                                                    <p key={index}>{item}</p> {","}
-                                                                </>
-                                                            )
-                                                        })} */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,13 +122,6 @@ const Index = () => {
                                                             <p>{detail.routeType}</p>
                                                         )}
                                                     </div>
-                                                    {/* {detail?.routeType?.map((item, index) => {
-                                                        return (
-                                                            <>
-                                                                <p key={index}>{item}</p> {","}
-                                                            </>
-                                                        )
-                                                    })} */}
                                                 </div>
                                             </div>
                                         </div>

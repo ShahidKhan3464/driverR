@@ -79,7 +79,6 @@ export const StyledDetailsContent = styled.div`
             gap: 40px;
             display: flex;
             position: relative;
-            /* align-items: center; */
             
             @media screen and (max-width: 1080px) {
                 gap: 50px;
@@ -129,10 +128,6 @@ export const StyledDetailsContent = styled.div`
                     gap: 30px;
                     display: flex;
                     flex-wrap: wrap;
-
-                    /* @media screen and (max-width: 768px) {
-                        gap: 30px;
-                    } */
 
                     @media screen and (max-width: 520px) {
                         gap: 15px;

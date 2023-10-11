@@ -14,10 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { StyledTableCell, StyledTableRow, StyledNoResultsFound, StyledLoadingContainer, StyledHeading } from 'components/globaStyle';
 
 const options = [
-    // { icon: '/images/view-icon.svg', text: 'View' },
-    // { icon: '/images/accept-icon.svg', text: 'Approve' },
-    // { icon: '/images/reject-icon.svg', text: 'Reject' },
-    // { icon: '/images/block-icon.svg', text: 'Block' },
+
 ]
 
 const Index = ({ data, loading, handleApplication }) => {

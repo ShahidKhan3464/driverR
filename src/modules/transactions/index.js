@@ -5,7 +5,6 @@ import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { Layout } from 'antd';
 import { saveAs } from 'file-saver';
-import { getPlanType } from 'utils';
 import Dialog from 'components/dialog';
 import Radio from '@mui/material/Radio';
 import { pdf } from '@react-pdf/renderer';
@@ -71,7 +70,6 @@ const Index = () => {
                     amount: item?.stripeSubscriptionDetails?.plan?.amount
                 }
             })
-            // const sortedData = [...manipulatedData].sort((a, b) => moment(b.date).diff(moment(a.date)))
             setTransactions(manipulatedData)
             setLoading(false)
         }

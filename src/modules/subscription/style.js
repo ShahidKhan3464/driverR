@@ -87,22 +87,6 @@ export const ContentContainer = styled.div`
                     }
 
                     &_left {
-                        // h3 {
-                        //     margin: 0;
-                        //     font-size: 22px;
-                        //     font-weight: 600;
-                        //     line-height: 26px;
-                        //     font-style: normal;
-                        //     margin-bottom: 20px;
-                        //     color: ${primaryBlue};
-                        //     font-family: SF Pro Text;
-                        //     text-transform: capitalize;
-
-                        //     @media screen and (max-width: 520px) {
-                        //         font-size: 20px;
-                        //         line-height: 24px;
-                        //     }
-                        // }
 
                         p {
                             gap: 8px;

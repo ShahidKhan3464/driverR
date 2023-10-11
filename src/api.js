@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const baseURL = process.env.REACT_APP_BASE_URL
-// const baseURL = 'https://db28-203-99-174-147.ngrok-free.app/'
 const authToken = localStorage.getItem('authToken')
 
 class ApiClient {

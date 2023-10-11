@@ -16,12 +16,6 @@ const status = [
     { value: false, text: 'Inactive' },
 ]
 
-const subscription = [
-    { value: 'basic', text: 'Basic' },
-    { value: 'premium', text: 'Premium' },
-    { value: 'standard', text: 'Standard' },
-]
-
 const Index = () => {
     const api = new ApiClient()
     const navigate = useNavigate()
@@ -30,7 +24,6 @@ const Index = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [filter, setFilter] = useState({
         status: '',
-        subscription: '',
     })
 
     const filteredCompanies = companies.filter((item) => {
@@ -131,12 +124,6 @@ const Index = () => {
                                 name="status"
                                 options={status}
                                 defaultValue="Status"
-                                handleFilterChange={handleFilterChange}
-                            />
-                            <Dropdown
-                                name="subscription"
-                                options={subscription}
-                                defaultValue="Subscription plan"
                                 handleFilterChange={handleFilterChange}
                             />
                         </div>

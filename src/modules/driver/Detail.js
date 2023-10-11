@@ -8,8 +8,8 @@ import Breadcrumbs from 'components/breadCrumbs';
 import IconButton from '@mui/material/IconButton';
 import RejectCauseDialog from 'components/rejectDialog';
 import CircularProgress from '@mui/material/CircularProgress';
+import { StyledHeading, StyledTableHeading } from 'components/globaStyle';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { StyledHeading, StyledTableHeading, grey400 } from 'components/globaStyle';
 import { ContentContainer, StyledDetailsContent, StyledAttachment } from './style';
 const { Content } = Layout;
 
@@ -23,11 +23,6 @@ const Index = () => {
     const [attachment, setAttachment] = useState()
     const [dialogType, setDialogType] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false)
-
-    // const documents = [
-    //     { text: 'Driving license', img: '/images/license.png' },
-    //     { text: 'Driving certificate', img: '/images/certificate.png' },
-    // ]
 
     const breadcrumbs = [
         <Link
@@ -264,9 +259,8 @@ const Index = () => {
                                                 {detail?.licenceType?.map(item => {
                                                     return (
                                                         <div>
-                                                            {/* <h3>Driving license {item.licenceType.split(" ")[1]}</h3> */}
                                                             <h3>Driving license {getLicenceType(item.licenceType)}</h3>
-                                                            <p><span style={{ color: grey400 }}>Experience:</span> {item.experience} Years</p>
+                                                            <p><span>Experience:</span> {item.experience} Years</p>
                                                         </div>
                                                     )
                                                 })}

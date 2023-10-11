@@ -63,15 +63,6 @@ const equipmentType = [
     { value: 'tautliner & box (7.5 ton)', text: 'Tautliner & Box (7.5 Ton)' },
 ]
 
-// const experience = [
-//     { value: '1', text: '0-1 year' },
-//     { value: '2', text: '1-2 years' },
-//     { value: '3', text: '2-3 years' },
-//     { value: '4', text: '3-4 years' },
-//     { value: '5', text: '4-5 years' },
-//     { value: '+5', text: '+5 years' },
-// ]
-
 const Index = () => {
     const api = new ApiClient()
     const navigate = useNavigate()
@@ -87,21 +78,10 @@ const Index = () => {
     })
 
     const filteredDrivers = drivers.filter((item) => {
-        // let experienceMatch = true
         const fullName = `${item.firstName} ${item.lastName}`
-        // const locationMatch = !filter.preferredLocation || item.preferredLocation.toLowerCase() === filter.preferredLocation
-        // const employmentMatch = !filter.employmentStatus || item.employmentStatus.toLowerCase() === filter.employmentStatus
         const locationMatch = !filter.preferredLocation || item.preferredLocations.map(element => element.toLowerCase()).includes(filter.preferredLocation)
         const equipmentMatch = !filter.equipmentType || item.equipmentType.map(element => element.toLowerCase()).includes(filter.equipmentType)
         const genderMatch = !filter.gender || item.gender.toLowerCase() === filter.gender
-
-        // if (filter.experience === '+5') {
-        //     experienceMatch = item.drivingExperience > 5
-        // }
-
-        // else {
-        //     experienceMatch = !filter.experience || item.drivingExperience === filter.experience
-        // }
 
         const searchMatch = !searchQuery
             || fullName.toLowerCase().includes(searchQuery.toLowerCase())

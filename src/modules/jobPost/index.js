@@ -30,38 +30,6 @@ const equipmentType = [
     { value: 'tautliner & box (7.5 ton)', text: 'Tautliner & Box (7.5 Ton)' },
 ]
 
-// const routeType = [
-//     { value: 'albania', text: 'Albania' },
-//     { value: 'andorra', text: 'Andorra' },
-//     { value: 'austria', text: 'Austria' },
-//     { value: 'belarus', text: 'Belarus' },
-//     { value: 'belgium', text: 'Belgium' },
-//     { value: 'bulgaria', text: 'Bulgaria' },
-//     { value: 'croatia', text: 'Croatia' },
-//     { value: 'czech republic', text: 'Czech Republic' },
-//     { value: 'denmark', text: 'Denmark' },
-//     { value: 'france', text: 'France' },
-//     { value: 'germany', text: 'Germany' },
-//     { value: 'greece', text: 'Greece' },
-//     { value: 'hungary', text: 'Hungary' },
-//     { value: 'italy', text: 'Italy' },
-//     { value: 'luxemburg', text: 'Luxemburg' },
-//     { value: 'moldova', text: 'Moldova' },
-//     { value: 'netherlands', text: 'Netherlands' },
-//     { value: 'norway', text: 'Norway' },
-//     { value: 'poland', text: 'Poland' },
-//     { value: 'portugalia', text: 'Portugalia' },
-//     { value: 'serbia', text: 'Serbia' },
-//     { value: 'slovakia', text: 'Slovakia' },
-//     { value: 'slovenia', text: 'Slovenia' },
-//     { value: 'spain', text: 'Spain' },
-//     { value: 'sweden', text: 'Sweden' },
-//     { value: 'switzerland', text: 'Switzerland' },
-//     { value: 'turkey', text: 'Turkey' },
-//     { value: 'ucraina', text: 'Ucraina' },
-//     { value: 'united kingdom', text: 'United Kingdom' },
-// ]
-
 const routeType = [
     { value: 'national', text: 'National' },
     { value: 'international all over eu', text: 'International all over EU' },
@@ -83,8 +51,6 @@ const Index = () => {
     const filteredJobs = jobs.filter((item) => {
         const statusMatch = filter.status === '' || item.isActive === filter.status
         const routeMatch = !filter.routeType || item.routeType.toLowerCase() === filter.routeType
-        // const equipmentMatch = !filter.equipmentType || item.equipmentType.toLowerCase() === filter.equipmentType
-        // const routeMatch = !filter.routeType || item.routeType.map(element => element.toLowerCase()).includes(filter.routeType)
         const equipmentMatch = !filter.equipmentType || item.equipmentType.map(element => element.toLowerCase()).includes(filter.equipmentType)
         const searchMatch = !searchQuery
             || item.title.toLowerCase().includes(searchQuery.toLowerCase())

@@ -171,7 +171,6 @@ const Index = () => {
                 return {
                     date: new Date(item.stripeSubscriptionDetails.created * 1000),
                     planType: item?.planName
-                    // planType: getPlanType(item.lines.data[0].description),
                 }
             })
             if (subscriptions) {

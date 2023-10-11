@@ -186,7 +186,6 @@ export const StyledGeneral = styled.div`
         .new-confirm_password {
             gap: 19px;
             display: flex;
-            /* align-items: center; */
 
             @media screen and (max-width: 991px) {
                 flex-wrap: wrap;

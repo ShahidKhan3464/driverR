@@ -302,7 +302,4 @@ const validationSchema = Yup.object({
             const regex = /^\d+$/
             return regex.test(value)
         }),
-    // .test('is-decimal', 'Decimal values are not allowed', value => {
-    //     return Number(value) === parseInt(value)
-    // }),
 });
